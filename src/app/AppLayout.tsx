@@ -24,7 +24,7 @@ export function AppLayout() {
             </span>
             <span>
               <strong>בה״ד 1 · המקצוע הצבאי</strong>
-              <small>לומדה להכשרת קצונה</small>
+              <small>לומדה לתכנון, סיכונים ותחקיר</small>
             </span>
           </Link>
           <nav className="header-actions" aria-label="פעולות מערכת">

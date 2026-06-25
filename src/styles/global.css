@@ -344,9 +344,10 @@ p {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(330px, 0.8fr);
+  grid-template-columns: minmax(0, 900px);
   gap: 76px;
   align-items: center;
+  justify-content: center;
 }
 
 .hero h1 {
@@ -432,6 +433,80 @@ p {
 
 .roadmap-section {
   padding: 92px 0 100px;
+}
+
+.roadmap-context {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.82fr) minmax(0, 1.18fr);
+  gap: 30px;
+  align-items: start;
+  margin-bottom: 46px;
+  padding: 32px;
+  border: 1px solid #d8d2c3;
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(247, 243, 234, 0.86)),
+    var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.roadmap-context__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(197, 161, 90, 0.14);
+  color: var(--bahad-olive-dark);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.roadmap-context h2 {
+  margin-bottom: 12px;
+  color: var(--navy-900);
+  font-size: clamp(1.7rem, 3vw, 2.35rem);
+}
+
+.roadmap-context p {
+  margin-bottom: 0;
+}
+
+.roadmap-context__body {
+  display: grid;
+  gap: 18px;
+}
+
+.roadmap-context__body ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.roadmap-context__body li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--ink);
+  font-size: 0.95rem;
+}
+
+.roadmap-context__body li .icon {
+  width: 18px;
+  margin-top: 3px;
+  color: var(--green-700);
+}
+
+.roadmap-context__instruction {
+  padding: 14px 16px;
+  border: 1px solid rgba(68, 83, 58, 0.16);
+  border-radius: var(--radius-sm);
+  background: rgba(68, 83, 58, 0.07);
+  color: var(--bahad-olive-dark);
+  font-weight: 700;
 }
 
 .section-heading {
@@ -3249,7 +3324,8 @@ button.form-field {
   .intro-layout,
   .builder-layout,
   .completed-layout,
-  .review-layout {
+  .review-layout,
+  .roadmap-context {
     grid-template-columns: 1fr;
   }
 
