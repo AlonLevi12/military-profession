@@ -14,13 +14,17 @@ export function AppLayout() {
     <div className="app-shell">
       <header className="site-header">
         <div className="site-header__inner">
-          <Link className="brand" to="/" aria-label="המקצוע הצבאי — דף הבית">
+          <Link
+            className="brand"
+            to="/"
+            aria-label="בה״ד 1 — המקצוע הצבאי — דף הבית"
+          >
             <span className="brand__mark" aria-hidden="true">
-              <Icon name="compass" />
+              <span>1</span>
             </span>
             <span>
-              <strong>המקצוע הצבאי</strong>
-              <small>לומדה אינטראקטיבית</small>
+              <strong>בה״ד 1 · המקצוע הצבאי</strong>
+              <small>לומדה להכשרת קצונה</small>
             </span>
           </Link>
           <nav className="header-actions" aria-label="פעולות מערכת">

@@ -26,18 +26,26 @@ export function RoadmapPage() {
       <section className="hero">
         <div className="container hero__grid">
           <div className="hero__content">
-            <span className="eyebrow eyebrow--light">מסלול למידה עצמי</span>
+            <span className="eyebrow eyebrow--light">
+              בה״ד 1 · מסלול למידה עצמי
+            </span>
             <h1>
-              מתכנון,
+              מתכנון פיקודי,
               <br />
-              דרך ניהול הסיכון,
+              דרך ניהול סיכון,
               <br />
-              <span>ועד ללמידה מן הביצוע.</span>
+              <span>ועד למידה מן הביצוע.</span>
             </h1>
             <p>
-              שלושה כלים מקצועיים. תרחיש אחד. בכל שלב תכירו את מטרת
-              המסמך, תבנו אותו באופן מודרך ותתרגלו בקרה וחיפוש טעויות.
+              סביבת תרגול נקייה ברוח בה״ד 1: שלושה כלי עבודה פיקודיים,
+              תרחיש הכשרה אחד, ובכל שלב מעבר מדויק בין פקודה, בקרה
+              ולמידה.
             </p>
+            <div className="hero__identity" aria-label="עקרונות בה״ד 1">
+              <span>קצונה</span>
+              <span>אחריות</span>
+              <span>בקרה</span>
+            </div>
             <div className="hero__actions">
               <Link className="button button--light" to="/module/paka/intro">
                 התחלת המסלול
@@ -51,7 +59,7 @@ export function RoadmapPage() {
           <aside className="scenario-card" aria-labelledby="scenario-title">
             <span className="scenario-card__badge">
               <Icon name="flag" />
-              תרחיש משותף
+              תרחיש הכשרה בה״ד 1
             </span>
             <h2 id="scenario-title">{sharedScenario.title}</h2>
             <p>{sharedScenario.description}</p>
@@ -72,11 +80,11 @@ export function RoadmapPage() {
           <div className="section-heading">
             <div>
               <span className="eyebrow">מפת הלמידה</span>
-              <h2>רצף פיקודי אחד, שלושה כלים</h2>
+              <h2>רצף הכשרה פיקודי אחד, שלושה כלים</h2>
             </div>
             <p>
-              אפשר לפתוח כל נושא. מומלץ להתקדם לפי הסדר כדי לראות כיצד
-              כל מסמך מזין את הבא אחריו.
+              כל נושא בנוי כמו תחנת לימוד בהכשרת קצינים: קצר, ממוסגר
+              ומחובר למסמך עבודה אמיתי.
             </p>
           </div>
 
@@ -137,18 +145,18 @@ export function RoadmapPage() {
         <div className="container principles-grid">
           <div>
             <Icon name="document" />
-            <h3>לומדים דרך המסמך</h3>
-            <p>כל חלק לחיץ, מוסבר ומקבל תוכן רק לאחר בחירה נכונה.</p>
+            <h3>לומדים דרך מסמך פיקודי</h3>
+            <p>כל חלק לחיץ, מוסבר ומנוסח כמו תוצר עבודה ביחידה.</p>
           </div>
           <div>
             <Icon name="spark" />
-            <h3>מקבלים משוב מסביר</h3>
-            <p>לא רק נכון או שגוי — אלא למה, מה חסר ולאיזה חלק זה שייך.</p>
+            <h3>שומרים על שפה צבאית</h3>
+            <p>המשוב מחזיר למטרה, אחריות, לו״ז ובקרה — לא רק “נכון/לא נכון”.</p>
           </div>
           <div>
             <Icon name="target" />
-            <h3>מתרגלים בקרה</h3>
-            <p>מאתרים טעויות במסמך מלא ומקבלים תמונת שליטה מפורטת.</p>
+            <h3>מתרגלים בקרת מפקד</h3>
+            <p>מאתרים טעויות במסמך מלא ומתרגלים תמונת שליטה ממוקדת.</p>
           </div>
         </div>
       </section>
