@@ -1362,6 +1362,99 @@ button.document-field {
   color: var(--amber-700);
 }
 
+.section-lesson {
+  display: grid;
+  gap: 14px;
+  margin: 0 0 22px;
+  padding: 18px;
+  border: 1px solid #d8d2c3;
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(247, 243, 234, 0.82), rgba(255, 255, 255, 0.96)),
+    white;
+}
+
+.section-lesson__header h3 {
+  margin: 0;
+  color: var(--navy-900);
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+}
+
+.section-lesson__principle {
+  margin: 0;
+  color: #374b57;
+  font-size: 0.88rem;
+}
+
+.section-lesson__terms {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.section-lesson__terms > div {
+  padding: 10px 12px;
+  border: 1px solid #e0dbcf;
+  border-radius: 10px;
+  background: white;
+}
+
+.section-lesson__terms dt {
+  color: var(--bahad-olive-dark);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.section-lesson__terms dd {
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.section-lesson__block,
+.section-lesson__check {
+  display: grid;
+  gap: 8px;
+}
+
+.section-lesson__block strong,
+.section-lesson__check strong,
+.section-lesson__example strong {
+  color: var(--navy-900);
+  font-size: 0.82rem;
+}
+
+.section-lesson ul,
+.section-lesson ol {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-right: 18px;
+  color: #4b5d66;
+  font-size: 0.8rem;
+}
+
+.section-lesson li::marker {
+  color: var(--bahad-gold);
+  font-weight: 900;
+}
+
+.section-lesson__example {
+  padding: 12px 14px;
+  border-right: 3px solid var(--bahad-gold);
+  border-radius: 10px 0 0 10px;
+  background: #fff;
+}
+
+.section-lesson__example p {
+  margin: 4px 0 0;
+  color: #2f414b;
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
 .option-bank {
   display: grid;
   gap: 10px;

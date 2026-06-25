@@ -4,6 +4,7 @@ import { DocumentPreview } from "../components/DocumentPreview";
 import { Icon } from "../components/Icon";
 import { ModuleHeader } from "../components/ModuleHeader";
 import { RiskMatrix } from "../components/RiskMatrix";
+import { sectionLessonsByModule } from "../content/sectionLessons";
 import { useModuleContent } from "../hooks/useModuleContent";
 import { useProgressStore } from "../store/progressStore";
 import {
@@ -43,6 +44,10 @@ export function DocumentBuilderPage() {
   const activeSection = module?.documentSections.find(
     (candidate) => candidate.id === activeSectionId,
   );
+  const activeLesson =
+    module && activeSection
+      ? sectionLessonsByModule[module.id][activeSection.id]
+      : undefined;
 
   useEffect(() => {
     if (!module || activeSectionId) return;
@@ -185,6 +190,52 @@ export function DocumentBuilderPage() {
                     </span>
                   </div>
                 </div>
+
+                {activeLesson && (
+                  <section className="section-lesson">
+                    <div className="section-lesson__header">
+                      <span className="eyebrow">חומר מקצועי לחלק</span>
+                      <h3>{activeLesson.title}</h3>
+                    </div>
+                    <p className="section-lesson__principle">
+                      {activeLesson.principle}
+                    </p>
+
+                    {activeLesson.terms && (
+                      <dl className="section-lesson__terms">
+                        {activeLesson.terms.map((term) => (
+                          <div key={term.term}>
+                            <dt>{term.term}</dt>
+                            <dd>{term.definition}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    )}
+
+                    <div className="section-lesson__block">
+                      <strong>עקרונות לזכור</strong>
+                      <ul>
+                        {activeLesson.bullets.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="section-lesson__check">
+                      <strong>בדיקה לפני בחירה</strong>
+                      <ol>
+                        {activeLesson.checkQuestions.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ol>
+                    </div>
+
+                    <div className="section-lesson__example">
+                      <strong>דוגמה תקינה</strong>
+                      <p>{activeLesson.example}</p>
+                    </div>
+                  </section>
+                )}
 
                 {module.id === "risk" &&
                   ["severity", "likelihood", "initial-level", "residual"].includes(
