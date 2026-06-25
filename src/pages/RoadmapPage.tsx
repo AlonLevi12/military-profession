@@ -47,9 +47,6 @@ export function RoadmapPage() {
                 קריאת הרקע והתחלת הלמידה
                 <Icon name="arrow-left" />
               </a>
-              <a className="text-link text-link--light" href="#roadmap">
-                צפייה ברצף התרגול
-              </a>
             </div>
           </div>
         </div>
