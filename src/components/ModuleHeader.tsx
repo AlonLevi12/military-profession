@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import type { ModuleContent } from "../types/content";
+import { ExampleViewer } from "./ExampleViewer";
 import { Icon } from "./Icon";
 import { ResetDialog } from "./ResetDialog";
 
@@ -41,6 +42,7 @@ export function ModuleHeader({
               <span className="module-index">
                 נושא {module.number} מתוך 3 · {module.title}
               </span>
+              <ExampleViewer module={module} compact />
               <button
                 className="reset-topic-button"
                 type="button"

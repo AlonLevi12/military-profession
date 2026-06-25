@@ -74,6 +74,13 @@ export interface ReviewScenario {
   scoringRules: ScoringRules;
 }
 
+export interface ExampleContent {
+  title: string;
+  caption: string;
+  imageSrc: string;
+  sourceLabel: string;
+}
+
 export interface ModuleContent {
   id: ModuleId;
   number: number;
@@ -84,6 +91,7 @@ export interface ModuleContent {
   transitionIn: string;
   transitionOut: string;
   documentName: string;
+  example: ExampleContent;
   documentSections: DocumentSection[];
   reviewScenarios: ReviewScenario[];
   summaryPoints: string[];

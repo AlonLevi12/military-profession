@@ -54,9 +54,10 @@ export function ModuleIntroPage() {
 
             <div className="intro-card-grid">
               {introCards.slice(1).map(([title, field, icon]) => (
-                <article className="info-card" key={field}>
+                <article className="info-card" key={field} tabIndex={0}>
                   <Icon name={icon} />
                   <h3>{title}</h3>
+                  <span className="info-card__hint">פירוט בריחוף</span>
                   <p>{module.intro[field]}</p>
                 </article>
               ))}

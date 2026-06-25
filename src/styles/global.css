@@ -2328,6 +2328,652 @@ button.document-field {
   margin-top: 26px;
 }
 
+.example-trigger {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid #c9d7de;
+  border-radius: 999px;
+  background: white;
+  color: var(--navy-900);
+  cursor: pointer;
+  font-size: 0.84rem;
+  font-weight: 800;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.example-trigger:hover {
+  transform: translateY(-1px);
+  border-color: var(--blue-600);
+  box-shadow: var(--shadow-sm);
+}
+
+.example-trigger .icon {
+  width: 17px;
+  height: 17px;
+  color: var(--blue-700);
+}
+
+.example-trigger--compact {
+  min-height: 34px;
+  padding: 6px 10px;
+  font-size: 0.76rem;
+}
+
+.example-overlay {
+  z-index: 140;
+}
+
+.example-modal {
+  display: grid;
+  width: min(980px, 94vw);
+  max-height: min(88vh, 920px);
+  overflow: hidden;
+  border-radius: 22px;
+  background: white;
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.34);
+}
+
+.example-modal__header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--line);
+}
+
+.example-modal__header h2 {
+  margin-bottom: 8px;
+  color: var(--navy-900);
+}
+
+.example-modal__header p {
+  max-width: 720px;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.example-modal__image-wrap {
+  overflow: auto;
+  padding: 18px;
+  background:
+    linear-gradient(45deg, #eef2f4 25%, transparent 25%),
+    linear-gradient(-45deg, #eef2f4 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #eef2f4 75%),
+    linear-gradient(-45deg, transparent 75%, #eef2f4 75%);
+  background-color: #f8faf9;
+  background-position:
+    0 0,
+    0 10px,
+    10px -10px,
+    -10px 0;
+  background-size: 20px 20px;
+}
+
+.example-modal__image-wrap img {
+  width: 100%;
+  height: auto;
+  max-height: 68vh;
+  object-fit: contain;
+  border: 1px solid #d5dde1;
+  border-radius: 12px;
+  background: white;
+}
+
+/* Modern/minimal density overrides */
+.hero {
+  padding: 64px 0 72px;
+}
+
+.hero__grid {
+  gap: 52px;
+}
+
+.hero h1 {
+  margin-bottom: 18px;
+  font-size: clamp(2.45rem, 5vw, 4.4rem);
+}
+
+.hero__content > p {
+  margin-bottom: 26px;
+}
+
+.scenario-card ul,
+.transition-card p {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    max-height 220ms ease,
+    opacity 180ms ease,
+    margin 180ms ease,
+    padding 180ms ease;
+}
+
+.scenario-card ul {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.scenario-card:hover ul,
+.scenario-card:focus-within ul {
+  max-height: 260px;
+  margin-top: 18px;
+  padding-top: 18px;
+  opacity: 1;
+}
+
+.roadmap-section {
+  padding: 72px 0 82px;
+}
+
+.module-card {
+  min-height: 164px;
+  padding: 28px 32px;
+}
+
+.module-card p {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    max-height 180ms ease,
+    opacity 180ms ease;
+}
+
+.module-card:hover p,
+.module-card:focus p,
+.module-card:focus-visible p {
+  max-height: 92px;
+  opacity: 1;
+}
+
+.transition-card:hover p {
+  max-height: 96px;
+  opacity: 1;
+}
+
+.info-card {
+  position: relative;
+  min-height: 150px;
+  cursor: default;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.info-card:hover,
+.info-card:focus {
+  transform: translateY(-2px);
+  border-color: #b7cad3;
+  box-shadow: var(--shadow-sm);
+}
+
+.info-card__hint {
+  display: inline-flex;
+  margin-top: 4px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--surface-soft);
+  color: #85939c;
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.info-card p {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    max-height 180ms ease,
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.info-card:hover p,
+.info-card:focus p,
+.info-card:focus-within p {
+  max-height: 180px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.info-card:hover .info-card__hint,
+.info-card:focus .info-card__hint,
+.info-card:focus-within .info-card__hint {
+  display: none;
+}
+
+/* Military form previews */
+.military-form-card {
+  overflow: visible;
+  padding: 14px;
+  border: 1px solid #d1c7ae;
+  border-radius: 20px;
+  background: #eee8d8;
+  box-shadow:
+    0 24px 70px rgba(10, 32, 51, 0.13),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+}
+
+.military-form {
+  position: relative;
+  display: grid;
+  gap: 18px;
+  padding: 26px;
+  border: 1px solid #d9cfb8;
+  border-radius: 10px;
+  background: #fffdf7;
+  color: #1c252c;
+}
+
+.military-form--risk {
+  border-color: #bdd4c8;
+  background: #fbfffc;
+}
+
+.military-form--debrief {
+  border-color: #dbc8a5;
+  background: #fffdf8;
+}
+
+.military-form__classification {
+  justify-self: center;
+  padding: 2px 12px;
+  border: 1px solid #1c252c;
+  color: #1c252c;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.military-form__header {
+  display: grid;
+  grid-template-columns: 130px 1fr 130px;
+  gap: 20px;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 4px double #1f2d35;
+  text-align: center;
+}
+
+.military-form__unit-mark {
+  display: grid;
+  min-height: 68px;
+  place-items: center;
+  padding: 8px;
+  border: 1px solid #ccd3d4;
+  border-radius: 50%;
+  color: #1c252c;
+  font-size: 0.72rem;
+}
+
+.military-form__unit-mark strong,
+.military-form__unit-mark span {
+  display: block;
+}
+
+.military-form__title > span,
+.review-form__meta {
+  color: #5f6b72;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.military-form__title h2 {
+  margin: 4px 0;
+  color: #111b22;
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  letter-spacing: 0;
+}
+
+.military-form__title p {
+  margin: 0;
+  color: #42515a;
+  font-size: 0.86rem;
+}
+
+.military-form__metadata,
+.review-form__meta {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid #cbd2d4;
+  border-radius: 8px;
+  background: white;
+}
+
+.military-form__metadata > div,
+.review-form__meta > span {
+  padding: 10px 12px;
+}
+
+.military-form__metadata > div + div,
+.review-form__meta > span + span {
+  border-right: 1px solid #cbd2d4;
+}
+
+.military-form__metadata dt {
+  color: #6e7a80;
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.military-form__metadata dd {
+  margin: 2px 0 0;
+  color: #1c252c;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.military-form__section {
+  display: grid;
+  gap: 16px;
+}
+
+.military-form__section--report,
+.military-form__section--review {
+  gap: 10px;
+}
+
+.military-form__chapter {
+  display: grid;
+  gap: 9px;
+  padding: 0 0 14px;
+  border-bottom: 1px solid #e4ded1;
+}
+
+.military-form__chapter:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.military-form__chapter h3 {
+  margin: 0;
+  color: #111b22;
+  font-size: 0.94rem;
+  letter-spacing: 0;
+}
+
+.form-field {
+  display: grid;
+  width: 100%;
+  gap: 7px;
+  padding: 12px 14px;
+  border: 1px solid #ccd4d6;
+  border-radius: 8px;
+  background: white;
+  color: inherit;
+  text-align: right;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+button.form-field {
+  cursor: pointer;
+}
+
+.form-field:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: var(--blue-600);
+  box-shadow: 0 0 0 2px rgba(40, 119, 168, 0.1);
+}
+
+.form-field--compact {
+  min-height: 82px;
+  padding: 10px;
+  font-size: 0.75rem;
+}
+
+.form-field.is-active {
+  border-color: var(--blue-600);
+  background: #f2f9fc;
+  box-shadow: 0 0 0 2px rgba(40, 119, 168, 0.16);
+}
+
+.form-field.is-completed {
+  border-color: #97c3a7;
+  background: #f7fcf8;
+}
+
+.form-field.is-locked {
+  cursor: not-allowed;
+  opacity: 0.56;
+  background: #f3f4f2;
+}
+
+.form-field__meta {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.form-field__meta > span:first-child {
+  color: #6b7a82;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.form-field__meta strong {
+  color: #111b22;
+  font-size: 0.82rem;
+}
+
+.form-field__meta .icon {
+  width: 16px;
+  height: 16px;
+  color: var(--blue-700);
+}
+
+.form-field.is-completed .form-field__meta .icon {
+  color: var(--green-700);
+}
+
+.form-field__content,
+.form-field__placeholder {
+  display: block;
+  color: #3f4f58;
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.form-field__placeholder {
+  color: #8a979e;
+}
+
+.military-form__table-scroll {
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.military-form__table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  font-size: 0.82rem;
+}
+
+.military-form__table th,
+.military-form__table td {
+  border: 1px solid #cfd7d9;
+  padding: 9px;
+  vertical-align: top;
+}
+
+.military-form__table th {
+  background: #eef2f1;
+  color: #20313a;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.military-form__table--risk {
+  min-width: 1180px;
+}
+
+.military-form__table--risk th {
+  background: #2f6d52;
+  color: white;
+}
+
+.military-form__row-number {
+  color: #1c252c;
+  font-weight: 900;
+  text-align: center;
+}
+
+.military-form__stack {
+  display: grid;
+  gap: 8px;
+}
+
+.review-document--form {
+  overflow: visible;
+}
+
+.review-form {
+  border: 0;
+  border-top: 1px solid #d9cfb8;
+  border-radius: 0 0 18px 18px;
+  box-shadow: none;
+}
+
+.review-document--risk .review-form {
+  border-top-color: #bdd4c8;
+}
+
+.review-form__meta {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.review-form__meta strong {
+  color: #1c252c;
+}
+
+.review-form-block {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: start;
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #cfd7d9;
+  border-radius: 8px;
+  background: white;
+  color: inherit;
+  cursor: pointer;
+  text-align: right;
+}
+
+.review-form-block:hover,
+.review-form-table__row:hover {
+  border-color: var(--blue-600);
+  background: #f7fbfd;
+}
+
+.review-form-block.is-active,
+.review-form-table__row.is-active {
+  border-color: var(--blue-600);
+  background: var(--blue-100);
+  box-shadow: 0 0 0 2px rgba(40, 119, 168, 0.14);
+}
+
+.review-form-block.is-annotated,
+.review-form-table__row.is-annotated {
+  border-color: #97c3a7;
+}
+
+.review-form-block__number {
+  color: #849099;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.review-form-block__body {
+  display: grid;
+  gap: 5px;
+}
+
+.review-form-block__body strong,
+.review-form-table__row strong {
+  color: #111b22;
+  font-size: 0.84rem;
+}
+
+.review-form-block__body > span:not(.annotation-chips),
+.review-form-table__row > span {
+  color: #3f4f58;
+  font-size: 0.82rem;
+}
+
+.review-form-block__empty {
+  color: #8a979e;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.review-form-table {
+  display: grid;
+  overflow-x: auto;
+  border: 1px solid #bdd4c8;
+  border-radius: 10px;
+  background: white;
+}
+
+.review-form-table__head,
+.review-form-table__row {
+  display: grid;
+  grid-template-columns: 64px minmax(170px, 0.6fr) minmax(420px, 1.3fr) minmax(
+      220px,
+      0.6fr
+    );
+  min-width: 920px;
+}
+
+.review-form-table__head {
+  background: #2f6d52;
+  color: white;
+  font-size: 0.76rem;
+  font-weight: 900;
+}
+
+.review-form-table__head span,
+.review-form-table__row > span,
+.review-form-table__row > strong {
+  padding: 12px;
+}
+
+.review-form-table__row {
+  border: 0;
+  border-top: 1px solid #d8e4dd;
+  background: white;
+  color: inherit;
+  cursor: pointer;
+  text-align: right;
+}
+
+.review-form-table__row > span:first-child {
+  color: #849099;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-weight: 900;
+  text-align: center;
+}
+
 @media (max-width: 1000px) {
   .hero__grid,
   .intro-layout,
@@ -2371,6 +3017,20 @@ button.document-field {
   .summary-stats {
     grid-column: 1 / -1;
     justify-self: stretch;
+  }
+
+  .military-form__header {
+    grid-template-columns: 1fr;
+  }
+
+  .military-form__unit-mark {
+    width: 120px;
+    justify-self: center;
+  }
+
+  .military-form__metadata,
+  .review-form__meta {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -2445,6 +3105,19 @@ button.document-field {
     padding-inline: 14px;
   }
 
+  .scenario-card ul,
+  .transition-card p,
+  .module-card p,
+  .info-card p {
+    max-height: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .info-card__hint {
+    display: none;
+  }
+
   .principles-grid,
   .intro-card-grid,
   .concepts dl,
@@ -2511,6 +3184,34 @@ button.document-field {
   .document-preview__body,
   .learning-panel,
   .annotation-panel {
+    padding: 20px;
+  }
+
+  .military-form-card {
+    padding: 8px;
+  }
+
+  .military-form,
+  .review-form {
+    padding: 18px;
+  }
+
+  .military-form__metadata,
+  .review-form__meta {
+    grid-template-columns: 1fr;
+  }
+
+  .military-form__metadata > div + div,
+  .review-form__meta > span + span {
+    border-top: 1px solid #cbd2d4;
+    border-right: 0;
+  }
+
+  .example-modal {
+    max-height: 92vh;
+  }
+
+  .example-modal__header {
     padding: 20px;
   }
 

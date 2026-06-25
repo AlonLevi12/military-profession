@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Icon } from "../components/Icon";
 import { ModuleHeader } from "../components/ModuleHeader";
+import { ReviewFormDocument } from "../components/ReviewFormDocument";
 import { useModuleContent } from "../hooks/useModuleContent";
 import { useProgressStore } from "../store/progressStore";
 import { CLEAN_ANNOTATION_ID, scoreReview } from "../utils/review";
@@ -133,54 +134,15 @@ export function ErrorReviewPage() {
       />
       <div className="review-page">
         <div className="container review-layout">
-          <section className="review-document" aria-labelledby="review-title">
-            <header>
-              <div>
-                <span className="eyebrow">מסמך לבדיקה</span>
-                <h2 id="review-title">{scenario.title}</h2>
-              </div>
-              <span className="review-counter">
-                {reviewedCount}/{scenario.documentBlocks.length} חלקים נבדקו
-              </span>
-            </header>
-            <div className="review-blocks">
-              {scenario.documentBlocks.map((block, index) => {
-                const blockAnswers = answers[block.id] ?? [];
-                const isActive = block.id === activeBlock.id;
-                return (
-                  <button
-                    type="button"
-                    key={block.id}
-                    className={`review-block ${isActive ? "is-active" : ""} ${
-                      blockAnswers.length ? "is-annotated" : ""
-                    }`}
-                    onClick={() => setActiveBlockId(block.id)}
-                    aria-pressed={isActive}
-                  >
-                    <span className="review-block__number">
-                      {(index + 1).toString().padStart(2, "0")}
-                    </span>
-                    <span className="review-block__content">
-                      <strong>{block.label}</strong>
-                      <span>{block.content}</span>
-                      {blockAnswers.length > 0 && (
-                        <span className="annotation-chips">
-                          {blockAnswers.map((annotationId) => (
-                            <small key={annotationId}>
-                              {annotationId === CLEAN_ANNOTATION_ID
-                                ? "החלק תקין"
-                                : annotationMap[annotationId]}
-                            </small>
-                          ))}
-                        </span>
-                      )}
-                    </span>
-                    <Icon name="chevron" />
-                  </button>
-                );
-              })}
-            </div>
-          </section>
+          <ReviewFormDocument
+            module={module}
+            scenario={scenario}
+            activeBlockId={activeBlock.id}
+            answers={answers}
+            annotationMap={annotationMap}
+            reviewedCount={reviewedCount}
+            onBlockClick={setActiveBlockId}
+          />
 
           <aside className="annotation-panel">
             <div className="annotation-panel__header">
