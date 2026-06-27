@@ -1526,24 +1526,74 @@ button.document-field {
   font-size: 0.58rem;
 }
 
+.risk-matrix td strong {
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
 .risk-matrix td[data-tone="low"] {
-  background: #dff3e6;
+  background: #e3f3e7;
   color: #1f6944;
 }
 
 .risk-matrix td[data-tone="medium"] {
-  background: #fff0c8;
-  color: #7f5612;
+  background: #f3a64a;
+  color: #3a2400;
 }
 
 .risk-matrix td[data-tone="high"] {
-  background: #ffe0c2;
-  color: #914c19;
+  background: #d24a4a;
+  color: #ffffff;
 }
 
 .risk-matrix td[data-tone="critical"] {
-  background: #f8d2d2;
-  color: #8f2e2e;
+  background: #a51f1f;
+  color: #ffffff;
+}
+
+/* M5 risk-factor boxes shown beneath the matrix. */
+.risk-matrix__m5 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0 12px 12px;
+  list-style: none;
+}
+
+.risk-matrix__m5 li {
+  display: grid;
+  flex: 1 1 100px;
+  gap: 1px;
+  padding: 8px;
+  border-radius: 8px;
+  background: #e7f0ea;
+  text-align: center;
+}
+
+.risk-matrix__m5 strong {
+  font-size: 0.8rem;
+}
+
+.risk-matrix__m5 span {
+  color: var(--muted);
+  font-size: 0.66rem;
+}
+
+/* Heading above the risk table (פרטי האירוע). */
+.risk-table__heading {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: start;
+}
+
+/* Compact assessment value in the final document, e.g. "ב A 9". */
+.risk-assessment {
+  display: block;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.06em;
 }
 
 .completed-layout {
@@ -2621,6 +2671,13 @@ button.document-field {
   font-size: 0.72rem;
 }
 
+.military-form__logo {
+  width: 68px;
+  height: 68px;
+  object-fit: contain;
+  justify-self: center;
+}
+
 .military-form__unit-mark strong,
 .military-form__unit-mark span {
   display: block;
@@ -3532,5 +3589,312 @@ button.form-field {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+}
+
+/* ===========================================================================
+   Official document — מסמך מטה לפי כללי כתיבה צבאית
+   Frameless A4 page: David font, justified, 2.5cm margins, no borders.
+   =========================================================================== */
+.official-document {
+  --official-ink: #111111;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.official-page {
+  width: 100%;
+  max-width: 794px; /* A4 width @96dpi */
+  box-sizing: border-box;
+  padding: clamp(24px, 4vw, 94px); /* ~2.5cm */
+  background: #ffffff;
+  color: var(--official-ink);
+  font-family: "David Libre", "David", "Frank Ruehl CLM", "Times New Roman",
+    serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: justify;
+  /* Screen-only affordance so it reads as a sheet of paper — not a frame. */
+  box-shadow: 0 18px 50px rgba(10, 32, 51, 0.16);
+}
+
+/* Classification — bold + underline, centered; page number thin below. */
+.official-classification {
+  display: grid;
+  justify-items: center;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.official-classification__label {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  letter-spacing: 0.04em;
+}
+
+.official-classification__page {
+  font-size: 0.85rem;
+  font-weight: 300;
+}
+
+/* Header — emblems (right) + sender letterhead & date (left). */
+.official-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 10px;
+}
+
+.official-sender {
+  display: grid;
+  gap: 10px;
+}
+
+.official-letterhead {
+  display: grid;
+  gap: 2px;
+  width: 220px;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  /* Distribute each line across the width: school-name words spread into
+     columns, phone label pushed right and number pushed left. */
+  text-align: justify;
+  text-align-last: justify;
+}
+
+.official-letterhead strong {
+  font-weight: 700;
+}
+
+.official-emblems {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.official-emblems img {
+  width: 68px; /* ~1.8cm */
+  height: 68px;
+  object-fit: contain;
+}
+
+/* Date — Hebrew above Gregorian, distributed like the letterhead. */
+.official-date {
+  display: grid;
+  gap: 2px;
+  width: 220px;
+  font-size: 0.95rem;
+  text-align: justify;
+  text-align-last: justify;
+}
+
+/* אל / דע routing. */
+.official-routing {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.official-routing p {
+  margin: 0;
+  text-align: start;
+}
+
+.official-routing__key {
+  font-weight: 700;
+}
+
+.official-routing__key--to {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.official-salutation {
+  margin: 0 0 8px;
+  text-align: start;
+}
+
+/* הנדון — 2 lines space around; "הנדון" plain, value bold + underline. */
+.official-subject {
+  margin: calc(2 * 1.5em) 0;
+  text-align: center;
+  font-size: 1.05rem;
+}
+
+.official-subject__key {
+  font-weight: 400;
+}
+
+.official-subject__value {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Body — reuse the section markup but strip all builder chrome / boxes. */
+.official-body {
+  display: grid;
+  gap: 14px;
+}
+
+.official-body .military-form__section,
+.official-body .military-form__chapter {
+  display: grid;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+}
+
+.official-body .military-form__chapter h3 {
+  margin: 0;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700; /* bold heading, no underline */
+  text-decoration: none;
+}
+
+/* Selected content reads as flowing prose; hide the field number/icon meta. */
+.official-body .form-field {
+  display: block;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  text-align: justify;
+}
+
+.official-body .form-field__meta {
+  display: none;
+}
+
+.official-body .form-field__content {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--official-ink);
+}
+
+.official-body .form-field__placeholder {
+  color: #6b7280;
+}
+
+/* Tables keep a grid, but centered single-line cells per the rules. */
+.official-body .military-form__table th,
+.official-body .military-form__table td {
+  border: 1px solid var(--official-ink);
+  text-align: center;
+  vertical-align: middle;
+}
+
+.official-body .military-form__table--risk th {
+  background: #efefef;
+  color: var(--official-ink);
+}
+
+/* Numbered sections (1.) with sub-items (א.) — the PKA body layout. */
+.official-sections {
+  display: grid;
+  gap: 16px; /* ~2 line spacing between sections */
+}
+
+.official-section {
+  display: grid;
+  gap: 6px;
+}
+
+.official-section__title {
+  margin: 0;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700; /* bold heading, no underline */
+  text-align: start;
+}
+
+.official-section__item {
+  margin: 0;
+  padding-inline-start: 1.6em; /* indent sub-item from the section number */
+  text-align: justify;
+  line-height: 1.5;
+}
+
+/* Debrief כללי — boxed labeled block in the final document. */
+.debrief-box {
+  display: grid;
+  gap: 6px;
+  padding: 12px 14px;
+  border: 1px solid var(--official-ink);
+}
+
+.debrief-box p {
+  margin: 0;
+  text-align: start;
+}
+
+/* Debrief sub-section headers (א. ממצאי רקע …). */
+.debrief-sub {
+  margin: 8px 0 2px;
+  font-weight: 700;
+  text-align: start;
+}
+
+/* Debrief כללי fields in the builder stack vertically. */
+.debrief-fields {
+  display: grid;
+  gap: 10px;
+}
+
+/* Official tables — colored header row, bordered centered cells. */
+.official-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+  font-size: 0.95rem;
+}
+
+.official-table th,
+.official-table td {
+  border: 1px solid var(--official-ink);
+  padding: 6px 8px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.official-table th {
+  background: #d9d9d9;
+  font-weight: 700;
+}
+
+/* Keep empty template cells at full row height. */
+.official-table td:empty::after {
+  content: "\00a0";
+}
+
+/* Signature — thin font; placed on the left, with distributed lines. */
+.official-signature {
+  display: grid;
+  gap: 2px;
+  width: 220px;
+  margin: 40px auto 0 0; /* margin-right:auto pushes the block to the left */
+  text-align: justify;
+  text-align-last: justify;
+  font-weight: 300;
+}
+
+.official-signature__off {
+  margin-bottom: 28px; /* room for a handwritten signature */
+}
+
+.official-signature__name {
+  font-weight: 400;
+}
+
+@media print {
+  .official-page {
+    max-width: none;
+    box-shadow: none;
+    padding: 2.5cm;
   }
 }

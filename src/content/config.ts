@@ -1,6 +1,6 @@
 import type { RiskMatrixConfig, ScoringRules } from "../types/content";
 
-export const CONTENT_VERSION = "2026.06.1";
+export const CONTENT_VERSION = "2026.06.3";
 export const STORAGE_KEY = "military-profession-learning:v1";
 
 export const defaultScoringRules: ScoringRules = {
@@ -10,25 +10,29 @@ export const defaultScoringRules: ScoringRules = {
   recommendedReviewThreshold: 80,
 };
 
+// Risk matrix per the official ניהול סיכונים example: severity grades
+// (חמור A / בינוני B / קל C) × likelihood (זניחה / נמוכה / בינונית / גבוהה),
+// with a fixed lookup of the resulting score (0–10).
 export const riskMatrixConfig: RiskMatrixConfig = {
   severityLevels: [
-    { value: 1, label: "זניחה", description: "השפעה שולית וקלה לטיפול." },
-    { value: 2, label: "קלה", description: "פגיעה מוגבלת ברצף הפעילות." },
-    { value: 3, label: "בינונית", description: "פגיעה ממשית המחייבת מענה." },
-    { value: 4, label: "חמורה", description: "פגיעה משמעותית במשימה או באנשים." },
-    { value: 5, label: "קריטית", description: "פגיעה חמורה מאוד או עצירת המשימה." },
+    { key: "A", label: "חמור", description: "פגיעה משמעותית במשימה או באנשים." },
+    { key: "B", label: "בינוני", description: "פגיעה ממשית המחייבת מענה." },
+    { key: "C", label: "קל", description: "השפעה מוגבלת על רצף הפעילות." },
   ],
   likelihoodLevels: [
-    { value: 1, label: "נדירה", description: "לא צפויה בתנאים הרגילים." },
-    { value: 2, label: "נמוכה", description: "אפשרית אך אינה סבירה." },
-    { value: 3, label: "בינונית", description: "עשויה להתממש בתנאים הקיימים." },
-    { value: 4, label: "גבוהה", description: "סביר שתתממש ללא מענה." },
-    { value: 5, label: "כמעט ודאית", description: "צפויה להתממש ללא שינוי." },
+    { key: "זניחה", abbr: "ז", description: "לא צפויה בתנאים הרגילים." },
+    { key: "נמוכה", abbr: "נ", description: "אפשרית אך אינה סבירה." },
+    { key: "בינונית", abbr: "ב", description: "עשויה להתממש בתנאים הקיימים." },
+    { key: "גבוהה", abbr: "ג", description: "סביר שתתממש ללא מענה." },
   ],
+  cells: {
+    A: { זניחה: 3, נמוכה: 7, בינונית: 9, גבוהה: 10 },
+    B: { זניחה: 1, נמוכה: 6, בינונית: 8, גבוהה: 9 },
+    C: { זניחה: 0, נמוכה: 2, בינונית: 4, גבוהה: 5 },
+  },
   levels: [
-    { min: 1, max: 4, label: "נמוך", tone: "low" },
-    { min: 5, max: 9, label: "בינוני", tone: "medium" },
-    { min: 10, max: 16, label: "גבוה", tone: "high" },
-    { min: 17, max: 25, label: "קריטי", tone: "critical" },
+    { min: 0, max: 4, label: "נמוך", tone: "low" },
+    { min: 5, max: 7, label: "בינוני", tone: "medium" },
+    { min: 8, max: 10, label: "גבוה", tone: "high" },
   ],
 };

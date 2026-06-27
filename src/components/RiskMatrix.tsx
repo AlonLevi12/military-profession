@@ -1,38 +1,46 @@
 import { riskMatrixConfig } from "../content/config";
 import { calculateRisk } from "../utils/risk";
 
+const m5Factors = [
+  { he: "אדם", en: "Man" },
+  { he: "ציוד ואמל״ח", en: "Machine" },
+  { he: "סביבה", en: "Medium" },
+  { he: "פיקוד ושליטה", en: "Management" },
+];
+
 export function RiskMatrix() {
+  const { severityLevels, likelihoodLevels } = riskMatrixConfig;
+  // Likelihood ascends in config; show it descending so זניחה sits on the
+  // left and גבוהה on the right, as in the example matrix.
+  const likelihoodColumns = [...likelihoodLevels].reverse();
+
   return (
     <details className="risk-matrix">
-      <summary>הצגת מטריצת הסיכון 1–5</summary>
+      <summary>הצגת מטריצת הסיכון ומדדי M5</summary>
       <div className="risk-matrix__scroll">
         <table>
-          <caption className="sr-only">
-            רמת סיכון לפי חומרה וסבירות
-          </caption>
+          <caption className="sr-only">רמת סיכון לפי חומרה וסבירות</caption>
           <thead>
             <tr>
-              <th scope="col">סבירות \ חומרה</th>
-              {riskMatrixConfig.severityLevels.map((level) => (
-                <th scope="col" key={level.value}>
-                  {level.value}
+              <th scope="col">חומרה \ סבירות</th>
+              {likelihoodColumns.map((likelihood) => (
+                <th scope="col" key={likelihood.key}>
+                  {likelihood.key}
                 </th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {[...riskMatrixConfig.likelihoodLevels].reverse().map((likelihood) => (
-              <tr key={likelihood.value}>
-                <th scope="row">{likelihood.value}</th>
-                {riskMatrixConfig.severityLevels.map((severity) => {
-                  const risk = calculateRisk(
-                    severity.value,
-                    likelihood.value,
-                  );
+            {severityLevels.map((severity) => (
+              <tr key={severity.key}>
+                <th scope="row">
+                  {severity.label} {severity.key}
+                </th>
+                {likelihoodColumns.map((likelihood) => {
+                  const risk = calculateRisk(severity.key, likelihood.key);
                   return (
-                    <td key={severity.value} data-tone={risk.tone}>
+                    <td key={likelihood.key} data-tone={risk.tone}>
                       <strong>{risk.value}</strong>
-                      <span>{risk.label}</span>
                     </td>
                   );
                 })}
@@ -41,6 +49,14 @@ export function RiskMatrix() {
           </tbody>
         </table>
       </div>
+      <ul className="risk-matrix__m5" aria-label="גורמי סיכון M5">
+        {m5Factors.map((factor) => (
+          <li key={factor.en}>
+            <strong>{factor.he}</strong>
+            <span>{factor.en}</span>
+          </li>
+        ))}
+      </ul>
     </details>
   );
 }

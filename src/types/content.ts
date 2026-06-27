@@ -104,13 +104,26 @@ export interface RiskLevel {
   tone: "low" | "medium" | "high" | "critical";
 }
 
+export interface RiskSeverityLevel {
+  /** Letter grade used as the matrix key and display abbreviation (A/B/C). */
+  key: string;
+  label: string;
+  description?: string;
+}
+
+export interface RiskLikelihoodLevel {
+  /** Full label, also the matrix key (e.g. "בינונית"). */
+  key: string;
+  /** Single-letter abbreviation shown in assessment cells (ז/נ/ב/ג). */
+  abbr: string;
+  description?: string;
+}
+
 export interface RiskMatrixConfig {
-  severityLevels: Array<{ value: number; label: string; description: string }>;
-  likelihoodLevels: Array<{
-    value: number;
-    label: string;
-    description: string;
-  }>;
+  severityLevels: RiskSeverityLevel[];
+  likelihoodLevels: RiskLikelihoodLevel[];
+  /** Lookup of the resulting score: cells[severityKey][likelihoodKey]. */
+  cells: Record<string, Record<string, number>>;
   levels: RiskLevel[];
 }
 

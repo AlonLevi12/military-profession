@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { riskMatrixConfig } from "../content/config";
 import type { DocumentSection, ModuleContent } from "../types/content";
 import type { BuilderModuleProgress } from "../types/progress";
 import { Icon } from "./Icon";
@@ -10,7 +11,78 @@ interface DocumentPreviewProps {
   availableSectionIds?: string[];
   onSectionClick?: (sectionId: string) => void;
   readonly?: boolean;
+  /**
+   * "builder" – the interactive working view (default).
+   * "letter" – the completed document rendered as an official IDF
+   * staff document per כללי כתיבה צבאית (frameless A4, letterhead, אל/דע,
+   * הנדון, signature).
+   */
+  variant?: "builder" | "letter";
 }
+
+/** Constant letterhead — identical on every official document. */
+const letterhead = {
+  school: "בית הספר לקצינים ע״ש רא״ל לסקוב",
+  branch: "ענף ההדרכה",
+  phones: [
+    "טלפון מטכ״לי: 03-9876443",
+    "טלפון אזרחי: 03-1928376",
+    "מספר פקס: 03-1928376",
+  ],
+};
+
+interface LetterMeta {
+  classification: string;
+  hebrewDate: string;
+  gregorianDate: string;
+  to: string;
+  cc: string;
+  subject: string;
+  signOff: string;
+  signerName: string;
+  signerRole: string;
+}
+
+/**
+ * Sample (training) values for the official-document framing. Hebrew dates
+ * are taken from verified examples; everything here is placeholder content
+ * meant to be reviewed by an authorized instructor before deployment.
+ */
+const letterMetaByModule: Record<ModuleContent["id"], LetterMeta> = {
+  paka: {
+    classification: "בלמ״ס",
+    hebrewDate: "ט׳ בתמוז התשפ״ו",
+    gregorianDate: "24 ביוני 2026",
+    to: "בה״ד 1 - מגמת נחשון - גדוד ארז - מ״פ גולן - יעל טרבלסי",
+    cc: "בה״ד 1 - מגמת נחשון - גדוד ארז - פלוגת גולן - מפקדת צוות 11 - סגן ליה בן אדון",
+    subject: "פקודת ארגון – יום אימון צוותי",
+    signOff: "בברכה,",
+    signerName: "צוער אורי יצחק",
+    signerRole: "צוער בבית הספר לקצינים",
+  },
+  risk: {
+    classification: "בלמ״ס",
+    hebrewDate: "ג׳ בתמוז התשפ״ו",
+    gregorianDate: "18 ביוני 2026",
+    to: "בה״ד 1 – מגמת נחשון – גדוד ארז – פלוגת גולן – מפקדי הצוותים",
+    cc: "בה״ד 1 – מגמת נחשון – גדוד ארז – מ״פ גולן",
+    subject: "ניהול סיכונים – יום אימון צוותי",
+    signOff: "בברכה,",
+    signerName: "סרן דנה לוי",
+    signerRole: "מפקדת הפעילות, בית הספר לקצינים",
+  },
+  debrief: {
+    classification: "בלמ״ס",
+    hebrewDate: "ט׳ בתמוז התשפ״ו",
+    gregorianDate: "24 ביוני 2026",
+    to: "בה״ד 1 - מגמת נחשון - גדוד ארז - מ״פ גולן - יעל טרבלסי",
+    cc: "בה״ד 1 - מגמת נחשון - גדוד ארז - פלוגת גולן - מפקדת צוות 11 - סגן ליה בן אדון",
+    subject: "תחקיר – יום אימון צוותי",
+    signOff: "בברכה,",
+    signerName: "צוער אורי יצחק",
+    signerRole: "צוער בבית הספר לקצינים",
+  },
+};
 
 interface FieldOptions {
   label?: string;
@@ -56,6 +128,7 @@ export function DocumentPreview({
   availableSectionIds = [],
   onSectionClick,
   readonly = false,
+  variant = "builder",
 }: DocumentPreviewProps) {
   const completed = new Set(progress?.completedSectionIds ?? []);
   const available = new Set(availableSectionIds);
@@ -143,26 +216,34 @@ export function DocumentPreview({
     );
   };
 
-  const renderShell = (children: ReactNode) => (
+  const renderBuilderShell = (children: ReactNode) => (
     <article
       className={`document-preview document-preview--${module.id} military-form-card`}
     >
       <div className={`military-form military-form--${module.id}`} dir="rtl">
         <div className="military-form__classification">בלמ״ס</div>
         <header className="military-form__header">
-          <div className="military-form__unit-mark">
-            <strong>בה״ד 1</strong>
-            <span>מדור הכשרות</span>
-          </div>
+          <img
+            className="military-form__logo"
+            src="/logos/school-emblem.png"
+            alt="סמל בית הספר לקצינים"
+            onError={(event) => {
+              event.currentTarget.style.visibility = "hidden";
+            }}
+          />
           <div className="military-form__title">
             <span>מסמך תרגול</span>
             <h2>{module.documentName}</h2>
             <p>{formSubtitles[module.id]}</p>
           </div>
-          <div className="military-form__unit-mark">
-            <strong>מקצוע צבאי</strong>
-            <span>עותק למידה</span>
-          </div>
+          <img
+            className="military-form__logo"
+            src="/logos/idf-emblem.jpg"
+            alt="סמל צה״ל"
+            onError={(event) => {
+              event.currentTarget.style.visibility = "hidden";
+            }}
+          />
         </header>
         <dl className="military-form__metadata">
           {metadataByModule[module.id].map((item) => (
@@ -177,49 +258,253 @@ export function DocumentPreview({
     </article>
   );
 
+  /**
+   * Official document framing per כללי כתיבה צבאית — frameless A4 page,
+   * classification + page number, letterhead, emblems, date, אל/דע,
+   * salutation, הנדון and signature block.
+   */
+  const renderLetterShell = (children: ReactNode) => {
+    const meta = letterMetaByModule[module.id];
+    return (
+      <article className={`official-document official-document--${module.id}`}>
+        <div className="official-page" dir="rtl">
+          <div className="official-classification">
+            <span className="official-classification__label">
+              {meta.classification}
+            </span>
+            <span className="official-classification__page">1</span>
+          </div>
+
+          <header className="official-header">
+            <div className="official-emblems">
+              <img
+                src="/logos/idf-emblem.jpg"
+                alt="סמל צה״ל"
+                onError={(event) => {
+                  event.currentTarget.style.display = "none";
+                }}
+              />
+              <img
+                src="/logos/school-emblem.png"
+                alt="סמל בית הספר לקצינים"
+                onError={(event) => {
+                  event.currentTarget.style.display = "none";
+                }}
+              />
+            </div>
+            <div className="official-sender">
+              <div className="official-letterhead">
+                <strong>{letterhead.school}</strong>
+                <span>{letterhead.branch}</span>
+                {letterhead.phones.map((line) => (
+                  <span key={line}>{line}</span>
+                ))}
+              </div>
+              <div className="official-date">
+                <span>{meta.hebrewDate}</span>
+                <span>{meta.gregorianDate}</span>
+              </div>
+            </div>
+          </header>
+
+          <div className="official-routing">
+            <p>
+              <span className="official-routing__key official-routing__key--to">
+                אל:
+              </span>{" "}
+              {meta.to}
+            </p>
+            <p>
+              <span className="official-routing__key">דע:</span> {meta.cc}
+            </p>
+          </div>
+
+          <p className="official-salutation">שלום רב,</p>
+
+          <p className="official-subject">
+            <span className="official-subject__key">הנדון:</span>{" "}
+            <span className="official-subject__value">{meta.subject}</span>
+          </p>
+
+          <div className="official-body">{children}</div>
+
+          <div className="official-signature">
+            <span className="official-signature__off">{meta.signOff}</span>
+            <span className="official-signature__name">{meta.signerName}</span>
+            <span className="official-signature__role">{meta.signerRole}</span>
+          </div>
+        </div>
+      </article>
+    );
+  };
+
+  const renderShell =
+    variant === "letter" ? renderLetterShell : renderBuilderShell;
+
+  /**
+   * PKA body exactly as the official example: numbered sections (1.) whose
+   * content is rendered as sub-items (א.), with לו״ז עקרוני and תחומי אחריות
+   * as the 4- and 3-column tables.
+   */
+  const renderPakaOfficialBody = () => {
+    const sectionText = (sectionId: string) => {
+      const section = sectionById.get(sectionId);
+      return section ? getSelectedText(section) : "";
+    };
+    const prose = (num: number, title: string, sectionId: string) => (
+      <section className="official-section">
+        <h3 className="official-section__title">
+          {num}. {title}
+        </h3>
+        <p className="official-section__item">א. {sectionText(sectionId)}</p>
+      </section>
+    );
+
+    return (
+      <div className="official-sections">
+        {prose(1, "כללי", "general")}
+        {prose(2, "מטרות", "goals")}
+        {prose(3, "שיטה", "method")}
+        {prose(4, "רציונאל", "rationale")}
+
+        <section className="official-section">
+          <h3 className="official-section__title">5. לו״ז עקרוני</h3>
+          <table className="official-table">
+            <thead>
+              <tr>
+                <th>שעות</th>
+                <th>תוכן</th>
+                <th>גורם מעביר</th>
+                <th>הערות</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>07:30–15:30</td>
+                <td>{sectionText("schedule")}</td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section className="official-section">
+          <h3 className="official-section__title">6. תחומי אחריות</h3>
+          <table className="official-table">
+            <thead>
+              <tr>
+                <th>גורם אחראי</th>
+                <th>תוכן</th>
+                <th>הערות</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>לוגיסטיקה / מפקד הפעילות</td>
+                <td>{sectionText("responsibilities")}</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        {prose(7, "דגשים", "emphasis")}
+      </div>
+    );
+  };
+
+  if (variant === "letter" && module.id === "paka") {
+    return renderShell(renderPakaOfficialBody());
+  }
+
   if (module.id === "risk") {
+    // Compact assessment cells for the final document, e.g. "ב A 9" — the
+    // likelihood abbreviation, severity grade and matrix value derived from
+    // the cadet's selections. The builder keeps the full explanatory fields.
+    const textOf = (sectionId: string) => {
+      const section = sectionById.get(sectionId);
+      return section ? getSelectedText(section) : "";
+    };
+    const severityGradeFrom = (text: string) => {
+      const grade = text.match(/\b[ABC]\b/);
+      if (grade) return grade[0];
+      if (text.includes("חמור")) return "A";
+      if (text.includes("בינוני")) return "B";
+      if (text.includes("קל")) return "C";
+      return "";
+    };
+    const likelihoodAbbrFrom = (text: string) =>
+      riskMatrixConfig.likelihoodLevels.find((level) =>
+        text.includes(level.key),
+      )?.abbr ?? "";
+    const valueFrom = (text: string) => text.match(/\d+/)?.[0] ?? "";
+    const compact = (likelihood: string, severity: string, value: string) =>
+      [likelihoodAbbrFrom(likelihood), severityGradeFrom(severity), valueFrom(value)]
+        .filter(Boolean)
+        .join(" ");
+
+    const residualText = textOf("residual");
+    const firstAssessment = compact(
+      textOf("likelihood"),
+      textOf("severity"),
+      textOf("initial-level"),
+    );
+    const secondAssessment = compact(residualText, residualText, residualText);
+
     return renderShell(
       <div className="military-form__section">
+        <h3 className="risk-table__heading">פרטי האירוע</h3>
         <div className="military-form__table-scroll">
           <table className="military-form__table military-form__table--risk">
             <thead>
               <tr>
-                <th>מס׳</th>
-                <th>גורם סיכון M5</th>
+                <th>שלב במשימה</th>
                 <th>סכנה</th>
                 <th>סיכון</th>
-                <th>הערכה ראשונית</th>
+                <th>גורם סיכון (M5)</th>
+                <th>הערכת סיכון ראשונית</th>
                 <th>פעילות מתקנת</th>
-                <th>אחראי ומועד</th>
-                <th>סיכון שיורי</th>
+                <th>הערכת סיכון שנייה</th>
+                <th>אחריות לביצוע</th>
                 <th>בקרה ועדכון</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td className="military-form__row-number">1</td>
-                <td>{renderField("m5", { compact: true })}</td>
+                <td>{renderField("stage", { compact: true })}</td>
                 <td>{renderField("hazard", { compact: true })}</td>
                 <td>{renderField("risk-statement", { compact: true })}</td>
+                <td>{renderField("m5", { compact: true })}</td>
                 <td>
-                  <div className="military-form__stack">
-                    {renderField("severity", {
-                      label: "חומרה",
-                      compact: true,
-                    })}
-                    {renderField("likelihood", {
-                      label: "סבירות",
-                      compact: true,
-                    })}
-                    {renderField("initial-level", {
-                      label: "רמה ראשונית",
-                      compact: true,
-                    })}
-                  </div>
+                  {variant === "letter" ? (
+                    <span className="risk-assessment">{firstAssessment}</span>
+                  ) : (
+                    <div className="military-form__stack">
+                      {renderField("severity", {
+                        label: "חומרה",
+                        compact: true,
+                      })}
+                      {renderField("likelihood", {
+                        label: "סבירות",
+                        compact: true,
+                      })}
+                      {renderField("initial-level", {
+                        label: "רמה ראשונית",
+                        compact: true,
+                      })}
+                    </div>
+                  )}
                 </td>
                 <td>{renderField("mitigation", { compact: true })}</td>
+                <td>
+                  {variant === "letter" ? (
+                    <span className="risk-assessment">{secondAssessment}</span>
+                  ) : (
+                    renderField("residual", { compact: true })
+                  )}
+                </td>
                 <td>{renderField("owner-deadline", { compact: true })}</td>
-                <td>{renderField("residual", { compact: true })}</td>
                 <td>{renderField("monitoring", { compact: true })}</td>
               </tr>
             </tbody>
@@ -230,37 +515,102 @@ export function DocumentPreview({
   }
 
   if (module.id === "debrief") {
+    const textOf = (sectionId: string) => {
+      const section = sectionById.get(sectionId);
+      return section ? getSelectedText(section) : "";
+    };
+
+    if (variant === "letter") {
+      return renderShell(
+        <div className="official-sections">
+          <section className="official-section">
+            <h3 className="official-section__title">1. כללי</h3>
+            <div className="debrief-box">
+              <p>
+                <strong>מועד האירוע:</strong> {textOf("event-date")}
+              </p>
+              <p>
+                <strong>מקום האירוע:</strong> {textOf("event-place")}
+              </p>
+              <p>
+                <strong>תיאור האירוע:</strong> {textOf("general")}
+              </p>
+              <p>
+                <strong>תוצאות האירוע:</strong> {textOf("event-results")}
+              </p>
+              <p>
+                <strong>משתתפים בתחקיר:</strong>
+              </p>
+              <p className="official-section__item">{textOf("participants")}</p>
+            </div>
+          </section>
+          <section className="official-section">
+            <h3 className="official-section__title">2. ממצאים</h3>
+            <p className="debrief-sub">א. ממצאי רקע</p>
+            <p className="official-section__item">1) {textOf("background")}</p>
+            <p className="debrief-sub">ב. רצף כרונולוגי</p>
+            <p className="official-section__item">1) {textOf("findings")}</p>
+            <p className="debrief-sub">ג. ממצאים נוספים</p>
+            <p className="official-section__item">
+              1) {textOf("additional-findings")}
+            </p>
+          </section>
+          <section className="official-section">
+            <h3 className="official-section__title">3. מסקנות</h3>
+            <p className="debrief-sub">א. גורמים</p>
+            <p className="official-section__item">1) {textOf("conclusions")}</p>
+            <p className="debrief-sub">ב. תקלות ושגיאות</p>
+            <p className="official-section__item">1) {textOf("gaps")}</p>
+            <p className="debrief-sub">ג. נק׳ ראויות לציון</p>
+            <p className="official-section__item">1) {textOf("noteworthy")}</p>
+          </section>
+          <section className="official-section">
+            <h3 className="official-section__title">4. לקחים</h3>
+            <p className="official-section__item">א. {textOf("lessons")}</p>
+          </section>
+          <section className="official-section">
+            <h3 className="official-section__title">5. המלצות</h3>
+            <p className="official-section__item">
+              א. {textOf("recommendations")}
+            </p>
+          </section>
+        </div>,
+      );
+    }
+
     return renderShell(
       <div className="military-form__section military-form__section--report">
         <section className="military-form__chapter">
           <h3>1. כללי</h3>
-          {renderField("general", { label: "מסגרת האירוע" })}
+          <div className="debrief-fields">
+            {renderField("event-date", { label: "מועד האירוע" })}
+            {renderField("event-place", { label: "מקום האירוע" })}
+            {renderField("general", { label: "תיאור האירוע" })}
+            {renderField("event-results", { label: "תוצאות האירוע" })}
+            {renderField("participants", { label: "משתתפים בתחקיר" })}
+          </div>
         </section>
         <section className="military-form__chapter">
-          <h3>2. ממצאים ועיקרי ההתרחשות</h3>
-          {renderField("findings", { label: "רצף עובדתי" })}
+          <h3>2. ממצאים</h3>
+          {renderField("background", { label: "א. ממצאי רקע" })}
+          {renderField("findings", { label: "ב. רצף כרונולוגי" })}
+          {renderField("additional-findings", { label: "ג. ממצאים נוספים" })}
         </section>
         <section className="military-form__chapter">
-          <h3>3. תקלות ושגיאות / הגדרת הפער</h3>
-          {renderField("gaps", { label: "פער בין מתוכנן לביצוע" })}
+          <h3>3. מסקנות</h3>
+          {renderField("conclusions", { label: "א. גורמים" })}
+          {renderField("gaps", { label: "ב. תקלות ושגיאות" })}
+          {renderField("noteworthy", { label: "ג. נק׳ ראויות לציון" })}
         </section>
         <section className="military-form__chapter">
-          <h3>4. מסקנות</h3>
-          {renderField("conclusions", { label: "סיבת הפער" })}
-        </section>
-        <section className="military-form__chapter">
-          <h3>5. לקחים</h3>
+          <h3>4. לקחים</h3>
           {renderField("lessons", { label: "פעולה לשימור / תיקון" })}
         </section>
         <section className="military-form__chapter">
-          <h3>6. המלצות</h3>
+          <h3>5. המלצות</h3>
           {renderField("recommendations", {
             label: "פעולה מחוץ לסמכות המתחקר",
           })}
-        </section>
-        <section className="military-form__chapter">
-          <h3>7. סיכום</h3>
-          {renderField("summary", { label: "עיקרי התמונה והיישום" })}
         </section>
       </div>,
     );

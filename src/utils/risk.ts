@@ -1,11 +1,18 @@
 import { riskMatrixConfig } from "../content/config";
 
 export function calculateRisk(
-  severity: number,
-  likelihood: number,
+  severityKey: string,
+  likelihoodKey: string,
   config = riskMatrixConfig,
 ) {
-  const value = severity * likelihood;
+  const value = config.cells[severityKey]?.[likelihoodKey];
+
+  if (value === undefined) {
+    throw new Error(
+      `No risk cell configured for ${severityKey} × ${likelihoodKey}`,
+    );
+  }
+
   const level = config.levels.find(
     (candidate) => value >= candidate.min && value <= candidate.max,
   );

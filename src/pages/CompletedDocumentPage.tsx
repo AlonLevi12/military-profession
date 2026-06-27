@@ -29,7 +29,12 @@ export function CompletedDocumentPage() {
       />
       <div className="page-section page-section--soft">
         <div className="container completed-layout">
-          <DocumentPreview module={module} progress={progress} readonly />
+          <DocumentPreview
+            module={module}
+            progress={progress}
+            readonly
+            variant="letter"
+          />
           <aside className="role-summary">
             <span className="eyebrow">מבט מסכם</span>
             <h2>תפקידו של כל חלק</h2>
