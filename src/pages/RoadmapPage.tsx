@@ -27,64 +27,72 @@ export function RoadmapPage() {
         <div className="container hero__grid">
           <div className="hero__content">
             <span className="eyebrow eyebrow--light">
-              בה״ד 1 · מסלול למידה עצמי
+              לומדת המקצוע הצבאי · בה״ד 1
             </span>
             <h1>
-              מתכנון פיקודי,
+              לומדים את הכלים,
               <br />
-              דרך ניהול סיכון,
+              רואים איך זה נראה,
               <br />
-              <span>ועד למידה מן הביצוע.</span>
+              <span>ומתרגלים כמו בעבודה אמיתית.</span>
             </h1>
             <p>
-              סביבת תרגול נקייה ברוח בה״ד 1: שלושה כלי עבודה פיקודיים,
-              תרחיש הכשרה אחד, ובכל שלב מעבר מדויק בין פקודה, בקרה
-              ולמידה.
+              לומדה קצרה ונעימה שמסבירה שלושה נושאים מרכזיים במקצוע
+              הצבאי: פק״א, ניהול סיכונים ותחקיר. בכל נושא קוראים הסבר
+              ממוקד, רואים דוגמה מהחומר, מתרגלים מילוי או בקרה של טופס
+              אמיתי, ומקבלים משוב שמסביר את ההיגיון מאחורי כל בחירה.
             </p>
-            <div className="hero__identity" aria-label="עקרונות בה״ד 1">
-              <span>קצונה</span>
-              <span>אחריות</span>
-              <span>בקרה</span>
-            </div>
             <div className="hero__actions">
-              <Link className="button button--light" to="/module/paka/intro">
-                התחלת המסלול
+              <a className="button button--light" href="#roadmap">
+                קריאת הרקע והתחלת הלמידה
                 <Icon name="arrow-left" />
-              </Link>
-              <a className="text-link text-link--light" href="#roadmap">
-                צפייה במפת הלמידה
               </a>
             </div>
           </div>
-          <aside className="scenario-card" aria-labelledby="scenario-title">
-            <span className="scenario-card__badge">
-              <Icon name="flag" />
-              תרחיש הכשרה בה״ד 1
-            </span>
-            <h2 id="scenario-title">{sharedScenario.title}</h2>
-            <p>{sharedScenario.description}</p>
-            <ul>
-              {sharedScenario.facts.slice(0, 4).map((fact) => (
-                <li key={fact}>
-                  <Icon name="check" />
-                  {fact}
-                </li>
-              ))}
-            </ul>
-          </aside>
         </div>
       </section>
 
       <section className="roadmap-section" id="roadmap">
         <div className="container">
+          <article className="roadmap-context" aria-labelledby="scenario-title">
+            <div className="roadmap-context__intro">
+              <span className="roadmap-context__badge">
+                <Icon name="flag" />
+                תחנה 0 · קריאת רקע
+              </span>
+              <h2 id="scenario-title">{sharedScenario.title}</h2>
+              <p>
+                לפני שמתחילים לענות, קוראים את הרקע ושומרים אותו בראש.
+                כל הפקודות, טבלאות הסיכונים והתחקירים שתבנו בהמשך נשענים
+                על אותו אירוע.
+              </p>
+            </div>
+            <div className="roadmap-context__body">
+              <p>{sharedScenario.description}</p>
+              <ul>
+                {sharedScenario.facts.map((fact) => (
+                  <li key={fact}>
+                    <Icon name="check" />
+                    {fact}
+                  </li>
+                ))}
+              </ul>
+              <p className="roadmap-context__instruction">
+                אחרי שהרקע ברור, עוברים נושא־נושא לפי הסדר: קודם מתכננים
+                בפק״א, אחר כך מנהלים את הסיכונים, ובסוף לומדים מהביצוע
+                דרך תחקיר.
+              </p>
+            </div>
+          </article>
+
           <div className="section-heading">
             <div>
               <span className="eyebrow">מפת הלמידה</span>
-              <h2>רצף הכשרה פיקודי אחד, שלושה כלים</h2>
+              <h2>קוראים את הרקע, ואז מתקדמים כלי־כלי</h2>
             </div>
             <p>
-              כל נושא בנוי כמו תחנת לימוד בהכשרת קצינים: קצר, ממוסגר
-              ומחובר למסמך עבודה אמיתי.
+              כל נושא בנוי כתחנת לימוד קצרה: הסבר מקצועי, דוגמה לצפייה,
+              תרגול על טופס אמיתי ומשוב שמחזיר לרקע שקראתם.
             </p>
           </div>
 
