@@ -321,7 +321,7 @@ export function DocumentBuilderPage() {
                     {shouldShowContinueButton ? (
                       nextAvailableIncompleteSection ? (
                         <button
-                          className="button button--primary button--full"
+                          className="button button--primary button--full button--next-section"
                           type="button"
                           onClick={handleContinueToNextSection}
                         >

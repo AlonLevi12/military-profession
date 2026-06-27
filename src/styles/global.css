@@ -191,6 +191,24 @@ p {
   background: var(--navy-800);
 }
 
+.button--next-section {
+  border-color: rgba(228, 200, 125, 0.9);
+  background:
+    linear-gradient(135deg, #f3d57d 0%, var(--bahad-gold) 52%, #9a6928 100%);
+  color: #102114;
+  box-shadow:
+    0 14px 34px rgba(154, 105, 40, 0.28),
+    0 0 0 4px rgba(228, 200, 125, 0.16);
+}
+
+.button--next-section:hover {
+  background:
+    linear-gradient(135deg, #ffe08c 0%, #d4ad61 48%, #a86f28 100%);
+  box-shadow:
+    0 18px 42px rgba(154, 105, 40, 0.34),
+    0 0 0 5px rgba(228, 200, 125, 0.22);
+}
+
 .button--light {
   background: #fff;
   color: var(--navy-900);
