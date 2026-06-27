@@ -360,6 +360,19 @@ export function DocumentPreview({
       </section>
     );
 
+    // Split the schedule content into one row per time slot.
+    const scheduleRows = sectionText("schedule")
+      .replace(/^לו״ז עקרוני:\s*/, "")
+      .split(";")
+      .map((part) => part.trim())
+      .filter(Boolean)
+      .map((item) => {
+        const match = item.match(/^(\d{1,2}:\d{2})\s+(.*)$/);
+        return match
+          ? { time: match[1], activity: match[2] }
+          : { time: "", activity: item };
+      });
+
     return (
       <div className="official-sections">
         {prose(1, "כללי", "general")}
@@ -369,6 +382,9 @@ export function DocumentPreview({
 
         <section className="official-section">
           <h3 className="official-section__title">5. לו״ז עקרוני</h3>
+          <p className="official-table-caption">
+            מסגרת זמן כוללת: {sectionText("schedule-hours")}
+          </p>
           <table className="official-table">
             <thead>
               <tr>
@@ -379,12 +395,22 @@ export function DocumentPreview({
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>{sectionText("schedule-hours")}</td>
-                <td>{sectionText("schedule")}</td>
-                <td>{sectionText("schedule-presenter")}</td>
-                <td>{sectionText("schedule-notes")}</td>
-              </tr>
+              {scheduleRows.map((row, index) => (
+                <tr key={index}>
+                  <td>{row.time}</td>
+                  <td>{row.activity}</td>
+                  {index === 0 && (
+                    <td rowSpan={scheduleRows.length}>
+                      {sectionText("schedule-presenter")}
+                    </td>
+                  )}
+                  {index === 0 && (
+                    <td rowSpan={scheduleRows.length}>
+                      {sectionText("schedule-notes")}
+                    </td>
+                  )}
+                </tr>
+              ))}
             </tbody>
           </table>
         </section>
@@ -444,13 +470,76 @@ export function DocumentPreview({
         .filter(Boolean)
         .join(" ");
 
-    const residualText = textOf("residual");
-    const firstAssessment = compact(
-      textOf("likelihood"),
-      textOf("severity"),
-      textOf("initial-level"),
-    );
-    const secondAssessment = compact(residualText, residualText, residualText);
+    const renderRiskRow = (ids: {
+      stage: string;
+      hazard: string;
+      riskStatement: string;
+      m5: string;
+      severity: string;
+      likelihood: string;
+      initialLevel: string;
+      mitigation: string;
+      residual: string;
+      ownerDeadline: string;
+      monitoring: string;
+    }) => {
+      const resid = textOf(ids.residual);
+      const first = compact(
+        textOf(ids.likelihood),
+        textOf(ids.severity),
+        textOf(ids.initialLevel),
+      );
+      const second = compact(resid, resid, resid);
+      return (
+        <tr key={ids.stage}>
+          <td>{renderField(ids.stage, { compact: true })}</td>
+          <td>{renderField(ids.hazard, { compact: true })}</td>
+          <td>{renderField(ids.riskStatement, { compact: true })}</td>
+          <td>{renderField(ids.m5, { compact: true })}</td>
+          <td>
+            {variant === "letter" ? (
+              <span className="risk-assessment">{first}</span>
+            ) : (
+              <div className="military-form__stack">
+                {renderField(ids.severity, { label: "חומרה", compact: true })}
+                {renderField(ids.likelihood, {
+                  label: "סבירות",
+                  compact: true,
+                })}
+                {renderField(ids.initialLevel, {
+                  label: "רמה ראשונית",
+                  compact: true,
+                })}
+              </div>
+            )}
+          </td>
+          <td>{renderField(ids.mitigation, { compact: true })}</td>
+          <td>
+            {variant === "letter" ? (
+              <span className="risk-assessment">{second}</span>
+            ) : (
+              renderField(ids.residual, { compact: true })
+            )}
+          </td>
+          <td>{renderField(ids.ownerDeadline, { compact: true })}</td>
+          <td>{renderField(ids.monitoring, { compact: true })}</td>
+        </tr>
+      );
+    };
+
+    const riskRowIds = (prefix: string) => ({
+      stage: prefix ? `${prefix}-stage` : "stage",
+      hazard: prefix ? `${prefix}-hazard` : "hazard",
+      riskStatement: prefix ? `${prefix}-risk-statement` : "risk-statement",
+      m5: prefix ? `${prefix}-m5` : "m5",
+      severity: prefix ? `${prefix}-severity` : "severity",
+      likelihood: prefix ? `${prefix}-likelihood` : "likelihood",
+      initialLevel: prefix ? `${prefix}-initial-level` : "initial-level",
+      mitigation: prefix ? `${prefix}-mitigation` : "mitigation",
+      residual: prefix ? `${prefix}-residual` : "residual",
+      ownerDeadline: prefix ? `${prefix}-owner-deadline` : "owner-deadline",
+      monitoring: prefix ? `${prefix}-monitoring` : "monitoring",
+    });
 
     return renderShell(
       <div className="military-form__section">
@@ -471,42 +560,9 @@ export function DocumentPreview({
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>{renderField("stage", { compact: true })}</td>
-                <td>{renderField("hazard", { compact: true })}</td>
-                <td>{renderField("risk-statement", { compact: true })}</td>
-                <td>{renderField("m5", { compact: true })}</td>
-                <td>
-                  {variant === "letter" ? (
-                    <span className="risk-assessment">{firstAssessment}</span>
-                  ) : (
-                    <div className="military-form__stack">
-                      {renderField("severity", {
-                        label: "חומרה",
-                        compact: true,
-                      })}
-                      {renderField("likelihood", {
-                        label: "סבירות",
-                        compact: true,
-                      })}
-                      {renderField("initial-level", {
-                        label: "רמה ראשונית",
-                        compact: true,
-                      })}
-                    </div>
-                  )}
-                </td>
-                <td>{renderField("mitigation", { compact: true })}</td>
-                <td>
-                  {variant === "letter" ? (
-                    <span className="risk-assessment">{secondAssessment}</span>
-                  ) : (
-                    renderField("residual", { compact: true })
-                  )}
-                </td>
-                <td>{renderField("owner-deadline", { compact: true })}</td>
-                <td>{renderField("monitoring", { compact: true })}</td>
-              </tr>
+              {renderRiskRow(riskRowIds(""))}
+              {renderRiskRow(riskRowIds("r2"))}
+              {renderRiskRow(riskRowIds("r3"))}
             </tbody>
           </table>
         </div>

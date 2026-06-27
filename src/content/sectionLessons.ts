@@ -357,7 +357,7 @@ export const sectionLessonsByModule: SectionLessonsByModule = {
         "איזו דרגת סבירות נבחרה?",
         "האם הערך נקרא מהמשבצת הנכונה במטריצה ולא מתחושת בטן?",
       ],
-      example: "8 — גבוה (בינוני B × סבירות בינונית).",
+      example: "5 — בינוני (קל C × סבירות גבוהה).",
     },
     mitigation: {
       title: "פעילות מתקנת צריכה לטפל בגורם הסיכון",
@@ -668,3 +668,28 @@ export const sectionLessonsByModule: SectionLessonsByModule = {
     },
   },
 };
+
+// The additional risk rows (r2-*, r3-*) teach the same concepts as the first
+// row, so they reuse the matching base lesson.
+const riskRowLessonBases = [
+  "stage",
+  "m5",
+  "hazard",
+  "risk-statement",
+  "severity",
+  "likelihood",
+  "initial-level",
+  "mitigation",
+  "owner-deadline",
+  "residual",
+  "monitoring",
+];
+
+for (const prefix of ["r2", "r3"]) {
+  for (const base of riskRowLessonBases) {
+    const lesson = sectionLessonsByModule.risk[base];
+    if (lesson) {
+      sectionLessonsByModule.risk[`${prefix}-${base}`] = lesson;
+    }
+  }
+}

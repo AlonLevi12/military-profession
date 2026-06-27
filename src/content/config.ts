@@ -1,6 +1,6 @@
 import type { RiskMatrixConfig, ScoringRules } from "../types/content";
 
-export const CONTENT_VERSION = "2026.06.4";
+export const CONTENT_VERSION = "2026.06.5";
 export const STORAGE_KEY = "military-profession-learning:v1";
 
 export const defaultScoringRules: ScoringRules = {
