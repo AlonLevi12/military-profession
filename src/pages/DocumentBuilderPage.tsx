@@ -200,6 +200,13 @@ export function DocumentBuilderPage() {
         ]}
         outcome="המטרה בשלב: להבין איך כל חלק נכתב ולצאת עם מסמך מלא שבנוי נכון."
       />
+      <StageGuide
+        eyebrow={module.builderContext.eyebrow}
+        title={module.builderContext.title}
+        description={module.builderContext.description}
+        items={module.builderContext.items}
+        outcome={module.builderContext.outcome}
+      />
       <div className="builder-page">
         <div className="container builder-layout">
           <div className="builder-document">

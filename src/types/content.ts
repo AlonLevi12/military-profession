@@ -81,6 +81,14 @@ export interface ExampleContent {
   sourceLabel: string;
 }
 
+export interface BuilderContextContent {
+  eyebrow: string;
+  title: string;
+  description: string;
+  items: Array<{ title: string; text: string }>;
+  outcome: string;
+}
+
 export interface ModuleContent {
   id: ModuleId;
   number: number;
@@ -92,6 +100,7 @@ export interface ModuleContent {
   transitionOut: string;
   documentName: string;
   example: ExampleContent;
+  builderContext: BuilderContextContent;
   documentSections: DocumentSection[];
   reviewScenarios: ReviewScenario[];
   summaryPoints: string[];
