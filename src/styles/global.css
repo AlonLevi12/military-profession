@@ -1089,6 +1089,110 @@ p {
   color: var(--green-700);
 }
 
+.builder-context-section {
+  padding: 28px 0 0;
+  background: var(--surface-soft);
+}
+
+.builder-context-card {
+  position: relative;
+  overflow: hidden;
+  padding: 30px;
+  border: 1px solid rgba(197, 161, 90, 0.42);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at 8% 0%, rgba(197, 161, 90, 0.22), transparent 32%),
+    linear-gradient(135deg, rgba(255, 252, 244, 0.98), rgba(245, 249, 247, 0.92)),
+    #fff;
+  box-shadow:
+    0 18px 44px rgba(14, 37, 58, 0.12),
+    inset 5px 0 0 var(--bahad-gold);
+}
+
+.builder-context-card::before {
+  position: absolute;
+  inset: 0;
+  border-top: 4px solid var(--bahad-gold);
+  content: "";
+  pointer-events: none;
+}
+
+.builder-context-card__header {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.36fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+  margin-bottom: 22px;
+}
+
+.builder-context-card__badge {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border: 1px solid rgba(145, 42, 42, 0.18);
+  border-radius: 999px;
+  background: rgba(145, 42, 42, 0.08);
+  color: var(--red-700);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.builder-context-card__badge .icon {
+  width: 17px;
+  height: 17px;
+}
+
+.builder-context-card h2 {
+  margin-bottom: 8px;
+  color: var(--navy-900);
+  font-size: clamp(1.6rem, 2.6vw, 2.25rem);
+}
+
+.builder-context-card__header p,
+.builder-context-card__body p,
+.builder-context-card__outcome {
+  margin: 0;
+}
+
+.builder-context-card__body {
+  display: grid;
+  gap: 14px;
+  max-width: 940px;
+  padding: 22px;
+  border: 1px solid rgba(68, 83, 58, 0.12);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.builder-context-card__body p {
+  color: #314452;
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
+.builder-context-card__outcome {
+  display: flex;
+  max-width: 940px;
+  gap: 10px;
+  align-items: flex-start;
+  margin-top: 16px;
+  padding: 14px 16px;
+  border: 1px solid rgba(197, 161, 90, 0.34);
+  border-radius: var(--radius-md);
+  background: rgba(255, 247, 226, 0.86);
+  color: var(--bahad-olive-dark);
+  font-weight: 900;
+}
+
+.builder-context-card__outcome .icon {
+  width: 20px;
+  margin-top: 2px;
+  flex: 0 0 auto;
+  color: var(--bahad-gold);
+}
+
 .intro-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 340px;
@@ -3500,6 +3604,10 @@ button.form-field {
     grid-template-columns: 1fr;
   }
 
+  .builder-context-card__header {
+    grid-template-columns: 1fr;
+  }
+
   .hero {
     padding-top: 62px;
   }
@@ -3616,6 +3724,19 @@ button.form-field {
   .module-card .status-chip,
   .module-card__cta {
     margin-top: 18px;
+  }
+
+  .builder-context-card {
+    padding: 22px;
+  }
+
+  .builder-context-card__body {
+    padding: 16px;
+  }
+
+  .builder-context-card__body p {
+    font-size: 0.95rem;
+    line-height: 1.82;
   }
 
   .transition-card {

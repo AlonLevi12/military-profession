@@ -85,7 +85,7 @@ export interface BuilderContextContent {
   eyebrow: string;
   title: string;
   description: string;
-  items: Array<{ title: string; text: string }>;
+  paragraphs: string[];
   outcome: string;
 }
 

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
+import { BuilderContextPanel } from "../components/BuilderContextPanel";
 import { DocumentPreview } from "../components/DocumentPreview";
 import { Icon } from "../components/Icon";
 import { ModuleHeader } from "../components/ModuleHeader";
@@ -200,13 +201,7 @@ export function DocumentBuilderPage() {
         ]}
         outcome="המטרה בשלב: להבין איך כל חלק נכתב ולצאת עם מסמך מלא שבנוי נכון."
       />
-      <StageGuide
-        eyebrow={module.builderContext.eyebrow}
-        title={module.builderContext.title}
-        description={module.builderContext.description}
-        items={module.builderContext.items}
-        outcome={module.builderContext.outcome}
-      />
+      <BuilderContextPanel context={module.builderContext} />
       <div className="builder-page">
         <div className="container builder-layout">
           <div className="builder-document">
