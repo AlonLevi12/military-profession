@@ -68,8 +68,8 @@ const letterMetaByModule: Record<ModuleContent["id"], LetterMeta> = {
     cc: "בה״ד 1 – מגמת נחשון – גדוד ארז – מ״פ גולן",
     subject: "ניהול סיכונים – יום אימון צוותי",
     signOff: "בברכה,",
-    signerName: "סרן דנה לוי",
-    signerRole: "מפקדת הפעילות, בית הספר לקצינים",
+    signerName: "צוער אורי יצחק",
+    signerRole: "צוער בבית הספר לקצינים",
   },
   debrief: {
     classification: "בלמ״ס",
@@ -380,10 +380,10 @@ export function DocumentPreview({
             </thead>
             <tbody>
               <tr>
-                <td>07:30–15:30</td>
+                <td>{sectionText("schedule-hours")}</td>
                 <td>{sectionText("schedule")}</td>
-                <td></td>
-                <td></td>
+                <td>{sectionText("schedule-presenter")}</td>
+                <td>{sectionText("schedule-notes")}</td>
               </tr>
             </tbody>
           </table>
@@ -401,9 +401,9 @@ export function DocumentPreview({
             </thead>
             <tbody>
               <tr>
-                <td>לוגיסטיקה / מפקד הפעילות</td>
+                <td>{sectionText("resp-owner")}</td>
                 <td>{sectionText("responsibilities")}</td>
-                <td></td>
+                <td>{sectionText("resp-notes")}</td>
               </tr>
             </tbody>
           </table>
@@ -639,14 +639,18 @@ export function DocumentPreview({
         <table className="military-form__table">
           <thead>
             <tr>
-              <th>שעה / שלב</th>
-              <th>פעילות מתוכננת</th>
+              <th>שעות</th>
+              <th>תוכן</th>
+              <th>גורם מעביר</th>
+              <th>הערות</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>07:30–15:30</td>
+              <td>{renderField("schedule-hours", { compact: true })}</td>
               <td>{renderField("schedule", { compact: true })}</td>
+              <td>{renderField("schedule-presenter", { compact: true })}</td>
+              <td>{renderField("schedule-notes", { compact: true })}</td>
             </tr>
           </tbody>
         </table>
@@ -656,14 +660,16 @@ export function DocumentPreview({
         <table className="military-form__table">
           <thead>
             <tr>
-              <th>בעל תפקיד</th>
-              <th>משימה / תוצר לבקרה</th>
+              <th>גורם אחראי</th>
+              <th>תוכן</th>
+              <th>הערות</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>לוגיסטיקה / מפקד פעילות</td>
+              <td>{renderField("resp-owner", { compact: true })}</td>
               <td>{renderField("responsibilities", { compact: true })}</td>
+              <td>{renderField("resp-notes", { compact: true })}</td>
             </tr>
           </tbody>
         </table>
