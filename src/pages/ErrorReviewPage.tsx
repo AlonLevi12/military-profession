@@ -3,6 +3,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Icon } from "../components/Icon";
 import { ModuleHeader } from "../components/ModuleHeader";
 import { ReviewFormDocument } from "../components/ReviewFormDocument";
+import { StageGuide } from "../components/StageGuide";
 import { useModuleContent } from "../hooks/useModuleContent";
 import { useProgressStore } from "../store/progressStore";
 import { CLEAN_ANNOTATION_ID, scoreReview } from "../utils/review";
@@ -131,6 +132,26 @@ export function ErrorReviewPage() {
         step={4}
         title="עכשיו אתם המבקרים"
         description={scenario.instructions}
+      />
+      <StageGuide
+        eyebrow="לפני הבקרה"
+        title="מה עושים בחיפוש הטעויות?"
+        description="בשלב הזה אתם מקבלים מסמך אחר ומבקרים אותו. לא מתקנים את הטקסט בעצמכם, אלא מחליטים לכל חלק האם הוא תקין או אילו הערות מקצועיות מתאימות לו."
+        items={[
+          {
+            title: "בוחרים חלק במסמך",
+            text: "לחצו על חלק במסמך כדי לראות בצד את בנק ההערות שמתאים לבדיקה.",
+          },
+          {
+            title: "מסמנים הערות או תקין",
+            text: "בחרו את כל ההערות המתאימות, או סמנו שהחלק תקין אם אין בו בעיה.",
+          },
+          {
+            title: "מגישים לבדיקה",
+            text: "בסוף מגישים את המסמך ומקבלים משוב על מה זוהה נכון, מה הוחמץ ומה סומן בטעות.",
+          },
+        ]}
+        outcome="המטרה בשלב: לתרגל בקרה מקצועית — לזהות טעויות בלי לסמן יותר מדי ובלי לפספס חלקים בעייתיים."
       />
       <div className="review-page">
         <div className="container review-layout">

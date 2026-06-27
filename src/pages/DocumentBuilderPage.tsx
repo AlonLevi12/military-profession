@@ -4,6 +4,7 @@ import { DocumentPreview } from "../components/DocumentPreview";
 import { Icon } from "../components/Icon";
 import { ModuleHeader } from "../components/ModuleHeader";
 import { RiskMatrix } from "../components/RiskMatrix";
+import { StageGuide } from "../components/StageGuide";
 import { sectionLessonsByModule } from "../content/sectionLessons";
 import { useModuleContent } from "../hooks/useModuleContent";
 import { useProgressStore } from "../store/progressStore";
@@ -168,6 +169,26 @@ export function DocumentBuilderPage() {
         step={2}
         title="בונים את המסמך, חלק אחר חלק"
         description="בחרו חלק זמין במסמך, למדו מה תפקידו והשלימו אותו מתוך בנק האפשרויות."
+      />
+      <StageGuide
+        eyebrow="לפני שמתחילים"
+        title="מה עושים בבנייה המודרכת?"
+        description={`בשלב הזה אתם בונים את ${module.documentName} בהדרגה. בכל פעם מתמקדים בחלק אחד, מבינים מה תפקידו במסמך, ואז בוחרים את הניסוח שמתאים לו.`}
+        items={[
+          {
+            title: "קוראים את ההסבר",
+            text: "בכל חלק תראו מטרה, מה צריך להיכלל, טעות נפוצה, חומר מקצועי ודוגמה תקינה.",
+          },
+          {
+            title: "בוחרים ניסוח",
+            text: "בחרו מבנק האפשרויות את התוכן שמתאים לחלק המסומן במסמך, לפי הרקע והפורמט.",
+          },
+          {
+            title: "בודקים ומתקדמים",
+            text: "אחרי תשובה נכונה המסמך מתעדכן, והכפתור הירוק יעביר אתכם לסעיף הבא.",
+          },
+        ]}
+        outcome="המטרה בשלב: להבין איך כל חלק נכתב ולצאת עם מסמך מלא שבנוי נכון."
       />
       <div className="builder-page">
         <div className="container builder-layout">

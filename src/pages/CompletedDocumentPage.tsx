@@ -2,6 +2,7 @@ import { Link, Navigate } from "react-router-dom";
 import { DocumentPreview } from "../components/DocumentPreview";
 import { Icon } from "../components/Icon";
 import { ModuleHeader } from "../components/ModuleHeader";
+import { StageGuide } from "../components/StageGuide";
 import { useModuleContent } from "../hooks/useModuleContent";
 import { useProgressStore } from "../store/progressStore";
 
@@ -26,6 +27,26 @@ export function CompletedDocumentPage() {
         step={3}
         title="המסמך שבניתם"
         description="כל חלק ממלא תפקיד אחר. עברו על המסמך השלם לפני שתעברו לבקר מסמך חדש."
+      />
+      <StageGuide
+        eyebrow="שלב מעבר"
+        title="מה עושים עם המסמך השלם?"
+        description="כאן לא עונים על עוד שאלה. עוצרים לרגע וקוראים את התוצר כמו מסמך עבודה שלם, כדי לראות איך החלקים שבניתם מתחברים למסמך אחד."
+        items={[
+          {
+            title: "סורקים את הרצף",
+            text: "קראו את המסמך מלמעלה למטה ובדקו שהוא מרגיש רציף, ברור ומסודר.",
+          },
+          {
+            title: "מבינים את תפקיד החלקים",
+            text: "היעזרו ברשימת התפקידים בצד כדי לראות מה כל חלק מוסיף למסמך.",
+          },
+          {
+            title: "מתכוננים לבקרה",
+            text: "שימו לב איך מסמך תקין נראה, כי בשלב הבא תקבלו מסמך אחר ותצטרכו לזהות בו טעויות.",
+          },
+        ]}
+        outcome="המטרה בשלב: לבסס בראש תמונה של מסמך תקין לפני מעבר לחיפוש טעויות."
       />
       <div className="page-section page-section--soft">
         <div className="container completed-layout">

@@ -988,6 +988,102 @@ p {
   background: var(--surface-soft);
 }
 
+.stage-guide-section {
+  padding: 28px 0 0;
+  background:
+    linear-gradient(180deg, rgba(247, 243, 234, 0.55), rgba(241, 244, 243, 0.82)),
+    var(--surface-soft);
+}
+
+.stage-guide {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.75fr) minmax(0, 1.25fr);
+  gap: 26px;
+  align-items: start;
+  padding: 26px;
+  border: 1px solid #d8d2c3;
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.94), rgba(247, 243, 234, 0.72)),
+    #fff;
+  box-shadow: var(--shadow-sm);
+}
+
+.stage-guide__intro h2 {
+  margin-bottom: 10px;
+  color: var(--navy-900);
+  font-size: clamp(1.45rem, 2.4vw, 2rem);
+}
+
+.stage-guide__intro p,
+.stage-guide__steps p,
+.stage-guide__outcome {
+  margin: 0;
+}
+
+.stage-guide__body {
+  display: grid;
+  gap: 16px;
+}
+
+.stage-guide__steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stage-guide__steps li {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  border: 1px solid rgba(68, 83, 58, 0.12);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.stage-guide__steps li > span {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--green-100);
+  color: var(--green-700);
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.stage-guide__steps strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--navy-900);
+}
+
+.stage-guide__steps p {
+  font-size: 0.9rem;
+}
+
+.stage-guide__outcome {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border: 1px solid rgba(37, 117, 101, 0.18);
+  border-radius: var(--radius-md);
+  background: rgba(229, 244, 234, 0.72);
+  color: var(--bahad-olive-dark);
+  font-weight: 800;
+}
+
+.stage-guide__outcome .icon {
+  width: 20px;
+  margin-top: 2px;
+  color: var(--green-700);
+}
+
 .intro-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 340px;
@@ -3399,7 +3495,12 @@ button.form-field {
   .builder-layout,
   .completed-layout,
   .review-layout,
-  .roadmap-context {
+  .roadmap-context,
+  .stage-guide {
+    grid-template-columns: 1fr;
+  }
+
+  .stage-guide__steps {
     grid-template-columns: 1fr;
   }
 
