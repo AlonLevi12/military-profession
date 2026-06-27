@@ -27,7 +27,12 @@ export function AppLayout() {
             aria-label="בה״ד 1 — המקצוע הצבאי — דף הבית"
           >
             <span className="brand__mark" aria-hidden="true">
-              <span>1</span>
+              <img
+                src="/logos/school-emblem.png"
+                alt=""
+                width="44"
+                height="44"
+              />
             </span>
             <span>
               <strong>בה״ד 1 · המקצוע הצבאי</strong>
