@@ -1,9 +1,10 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Icon } from "../components/Icon";
 import { modules } from "../content/modules";
 import { sharedScenario } from "../content/scenario";
 import { useProgressStore } from "../store/progressStore";
 import type { ModuleStatus } from "../types/content";
-import { Icon } from "../components/Icon";
 
 const statusLabels: Record<ModuleStatus, string> = {
   notStarted: "לא התחיל",
@@ -20,6 +21,33 @@ const moduleIcons = {
 
 export function RoadmapPage() {
   const statuses = useProgressStore((state) => state.moduleStatuses);
+  const [secretClickCount, setSecretClickCount] = useState(0);
+  const [secretModalOpen, setSecretModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (!secretModalOpen) return;
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSecretModalOpen(false);
+    };
+
+    document.addEventListener("keydown", closeOnEscape);
+
+    return () => document.removeEventListener("keydown", closeOnEscape);
+  }, [secretModalOpen]);
+
+  const handleSecretWordClick = () => {
+    setSecretClickCount((currentCount) => {
+      const nextCount = currentCount + 1;
+
+      if (nextCount >= 5) {
+        setSecretModalOpen(true);
+        return 0;
+      }
+
+      return nextCount;
+    });
+  };
 
   return (
     <>
@@ -164,10 +192,50 @@ export function RoadmapPage() {
           <div>
             <Icon name="target" />
             <h3>מתרגלים בקרת מפקד</h3>
-            <p>מאתרים טעויות במסמך מלא ומתרגלים תמונת שליטה ממוקדת.</p>
+            <p>
+              מאתרים טעויות במסמך מלא ומתרגלים תמונת שליטה{" "}
+              <span
+                className="secret-focus-word"
+                onClick={handleSecretWordClick}
+              >
+                ממוקדת
+              </span>
+              .
+            </p>
           </div>
         </div>
       </section>
+
+      {secretModalOpen && (
+        <div
+          className="overlay overlay--center secret-modal-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="secret-modal-title"
+          onClick={() => setSecretModalOpen(false)}
+        >
+          <article
+            className="secret-modal"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              className="secret-modal__close"
+              type="button"
+              aria-label="סגירת תמונה"
+              onClick={() => setSecretModalOpen(false)}
+            >
+              ×
+            </button>
+            <img
+              src="/easter-eggs/alon-levi-bental-erez-93.jpeg"
+              alt="אלון לוי במדי צה״ל"
+            />
+            <h2 id="secret-modal-title">
+              אלון לוי פלוגת בנטל ארז 93 אוהב אתכם
+            </h2>
+          </article>
+        </div>
+      )}
     </>
   );
 }

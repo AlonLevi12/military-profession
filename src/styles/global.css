@@ -800,6 +800,64 @@ p {
   font-size: 0.9rem;
 }
 
+.secret-focus-word {
+  color: inherit;
+  cursor: inherit;
+  text-decoration: none;
+}
+
+.secret-modal-overlay {
+  z-index: 180;
+}
+
+.secret-modal {
+  position: relative;
+  display: grid;
+  width: min(420px, calc(100vw - 36px));
+  gap: 18px;
+  padding: 18px;
+  border: 1px solid rgba(228, 200, 125, 0.34);
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 243, 234, 0.96)),
+    #fff;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.32);
+  text-align: center;
+}
+
+.secret-modal img {
+  display: block;
+  width: 100%;
+  max-height: min(68vh, 560px);
+  border-radius: 20px;
+  object-fit: contain;
+}
+
+.secret-modal h2 {
+  margin: 0;
+  color: var(--navy-900);
+  font-size: clamp(1.25rem, 4vw, 1.7rem);
+  line-height: 1.35;
+}
+
+.secret-modal__close {
+  position: absolute;
+  z-index: 1;
+  top: 12px;
+  left: 12px;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  background: rgba(8, 27, 43, 0.66);
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
 .module-header {
   padding: 30px 0 0;
   border-bottom: 1px solid var(--line);
