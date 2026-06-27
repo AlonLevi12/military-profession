@@ -5,6 +5,8 @@ import { sectionLessonsByModule } from "../content/sectionLessons";
 const normalizeText = (text: string) =>
   text.replace(/\s+/g, " ").replace(/־/g, "-").trim();
 
+const hasLeadingLabel = (text: string) => /^.{1,70}:\s/u.test(normalizeText(text));
+
 const currentScenarioMarkers = [
   "15.7",
   "07:30",
@@ -72,6 +74,24 @@ describe("section learning material", () => {
             example.includes(normalizeText(marker)),
             `${module.id}:${section.id} example leaks marker "${marker}"`,
           ).toBe(false);
+        }
+      }
+    }
+  });
+
+  it("matches the expected answer writing style for leading field labels", () => {
+    for (const module of modules) {
+      for (const section of module.documentSections) {
+        const lesson = sectionLessonsByModule[module.id][section.id];
+        const exampleHasLeadingLabel = hasLeadingLabel(lesson.example);
+
+        for (const option of section.options.filter((candidate) =>
+          section.correctOptionIds.includes(candidate.id),
+        )) {
+          expect(
+            exampleHasLeadingLabel,
+            `${module.id}:${section.id} example leading label style differs from the expected answer`,
+          ).toBe(hasLeadingLabel(option.text));
         }
       }
     }
