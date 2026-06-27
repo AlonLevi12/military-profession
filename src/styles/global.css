@@ -192,21 +192,19 @@ p {
 }
 
 .button--next-section {
-  border-color: rgba(228, 200, 125, 0.9);
-  background:
-    linear-gradient(135deg, #f3d57d 0%, var(--bahad-gold) 52%, #9a6928 100%);
-  color: #102114;
+  border-color: #79c99c;
+  background: #a8e6bf;
+  color: #102d1d;
   box-shadow:
-    0 14px 34px rgba(154, 105, 40, 0.28),
-    0 0 0 4px rgba(228, 200, 125, 0.16);
+    0 14px 34px rgba(36, 112, 74, 0.2),
+    0 0 0 4px rgba(168, 230, 191, 0.24);
 }
 
 .button--next-section:hover {
-  background:
-    linear-gradient(135deg, #ffe08c 0%, #d4ad61 48%, #a86f28 100%);
+  background: #94ddb0;
   box-shadow:
-    0 18px 42px rgba(154, 105, 40, 0.34),
-    0 0 0 5px rgba(228, 200, 125, 0.22);
+    0 18px 42px rgba(36, 112, 74, 0.26),
+    0 0 0 5px rgba(168, 230, 191, 0.3);
 }
 
 .button--light {
@@ -1399,6 +1397,7 @@ button.document-field {
   align-items: center;
   padding-bottom: 20px;
   border-bottom: 1px solid var(--line);
+  scroll-margin-top: 96px;
 }
 
 .learning-panel__header h2 {

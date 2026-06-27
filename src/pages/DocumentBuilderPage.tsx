@@ -31,6 +31,8 @@ export function DocumentBuilderPage() {
   const [selection, setSelection] = useState<string[]>([]);
   const [feedback, setFeedback] = useState<FeedbackState>();
   const feedbackRef = useRef<HTMLDivElement>(null);
+  const sectionHeaderRef = useRef<HTMLDivElement>(null);
+  const shouldScrollToSectionHeaderRef = useRef(false);
 
   const completedIds = builderProgress?.completedSectionIds ?? [];
   const availableIds = useMemo(
@@ -85,6 +87,15 @@ export function DocumentBuilderPage() {
   useEffect(() => {
     if (feedback) feedbackRef.current?.focus();
   }, [feedback]);
+
+  useEffect(() => {
+    if (!shouldScrollToSectionHeaderRef.current || !activeSectionId) return;
+    shouldScrollToSectionHeaderRef.current = false;
+    sectionHeaderRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, [activeSectionId]);
 
   if (!module) return <Navigate to="/" replace />;
 
@@ -146,6 +157,7 @@ export function DocumentBuilderPage() {
 
   const handleContinueToNextSection = () => {
     if (!nextAvailableIncompleteSection) return;
+    shouldScrollToSectionHeaderRef.current = true;
     setActiveSectionId(nextAvailableIncompleteSection.id);
   };
 
@@ -191,7 +203,7 @@ export function DocumentBuilderPage() {
           <aside className="learning-panel" aria-label="פאנל למידה">
             {activeSection && (
               <>
-                <div className="learning-panel__header">
+                <div className="learning-panel__header" ref={sectionHeaderRef}>
                   <span className="section-number">
                     {activeSection.order.toString().padStart(2, "0")}
                   </span>
