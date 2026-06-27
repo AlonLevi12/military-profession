@@ -17,14 +17,14 @@ export function BuilderContextPanel({ context }: BuilderContextPanelProps) {
       <div className="container">
         <article className="builder-context-card">
           <div className="builder-context-card__header">
-            <span className="builder-context-card__badge">
-              <Icon name="book" />
-              {context.eyebrow}
-            </span>
             <div>
               <h2 id={headingId}>{context.title}</h2>
               <p>{context.description}</p>
             </div>
+            <span className="builder-context-card__badge">
+              <Icon name="book" />
+              {context.eyebrow}
+            </span>
           </div>
 
           <div className="builder-context-card__body">
@@ -32,11 +32,6 @@ export function BuilderContextPanel({ context }: BuilderContextPanelProps) {
               <p key={paragraph}>{paragraph}</p>
             ))}
           </div>
-
-          <p className="builder-context-card__outcome">
-            <Icon name="warning" />
-            <span>{context.outcome}</span>
-          </p>
         </article>
       </div>
     </section>

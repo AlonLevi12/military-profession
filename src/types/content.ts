@@ -86,7 +86,6 @@ export interface BuilderContextContent {
   title: string;
   description: string;
   paragraphs: string[];
-  outcome: string;
 }
 
 export interface ModuleContent {

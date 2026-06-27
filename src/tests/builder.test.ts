@@ -64,10 +64,6 @@ describe("builder scenario context", () => {
         module.builderContext.paragraphs.length,
         `${module.id} builder context paragraphs`,
       ).toBeGreaterThanOrEqual(3);
-      expect(
-        module.builderContext.outcome.length,
-        `${module.id} builder context outcome`,
-      ).toBeGreaterThan(60);
 
       for (const paragraph of module.builderContext.paragraphs) {
         expect(

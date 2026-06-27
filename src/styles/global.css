@@ -1118,16 +1118,22 @@ p {
 }
 
 .builder-context-card__header {
-  display: grid;
-  grid-template-columns: minmax(180px, 0.36fr) minmax(0, 1fr);
+  display: flex;
   gap: 24px;
   align-items: start;
+  justify-content: space-between;
   margin-bottom: 22px;
+}
+
+.builder-context-card__header > div {
+  min-width: 0;
+  flex: 1 1 auto;
 }
 
 .builder-context-card__badge {
   display: inline-flex;
   width: fit-content;
+  flex: 0 0 auto;
   align-items: center;
   gap: 8px;
   padding: 9px 12px;
@@ -1151,8 +1157,7 @@ p {
 }
 
 .builder-context-card__header p,
-.builder-context-card__body p,
-.builder-context-card__outcome {
+.builder-context-card__body p {
   margin: 0;
 }
 
@@ -1170,27 +1175,6 @@ p {
   color: #314452;
   font-size: 1rem;
   line-height: 1.9;
-}
-
-.builder-context-card__outcome {
-  display: flex;
-  max-width: 940px;
-  gap: 10px;
-  align-items: flex-start;
-  margin-top: 16px;
-  padding: 14px 16px;
-  border: 1px solid rgba(197, 161, 90, 0.34);
-  border-radius: var(--radius-md);
-  background: rgba(255, 247, 226, 0.86);
-  color: var(--bahad-olive-dark);
-  font-weight: 900;
-}
-
-.builder-context-card__outcome .icon {
-  width: 20px;
-  margin-top: 2px;
-  flex: 0 0 auto;
-  color: var(--bahad-gold);
 }
 
 .intro-layout {
@@ -3601,10 +3585,6 @@ button.form-field {
   }
 
   .stage-guide__steps {
-    grid-template-columns: 1fr;
-  }
-
-  .builder-context-card__header {
     grid-template-columns: 1fr;
   }
 
