@@ -8,7 +8,6 @@ import { ResetDialog } from "./ResetDialog";
 interface ModuleHeaderProps {
   module: ModuleContent;
   step: number;
-  title: string;
   description?: string;
 }
 
@@ -24,10 +23,10 @@ const stepNames = [
 export function ModuleHeader({
   module,
   step,
-  title,
   description,
 }: ModuleHeaderProps) {
   const [resetOpen, setResetOpen] = useState(false);
+  const stepName = stepNames[step - 1] ?? "שלב למידה";
 
   return (
     <>
@@ -55,8 +54,8 @@ export function ModuleHeader({
           </div>
           <div className="module-header__title">
             <div>
-              <span className="eyebrow">{stepNames[step - 1]}</span>
-              <h1>{title}</h1>
+              <span className="eyebrow">שלב נוכחי</span>
+              <h1>{stepName}</h1>
               {description && <p>{description}</p>}
             </div>
             <div

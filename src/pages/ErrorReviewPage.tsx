@@ -91,7 +91,6 @@ export function ErrorReviewPage() {
         <ModuleHeader
           module={module}
           step={4}
-          title="הניסיון כבר הוגש"
           description="לא ניתן לשנות ניסיון לאחר בדיקה. אפשר לצפות בתוצאות או להתחיל ניסיון חדש."
         />
         <div className="page-section">
@@ -130,7 +129,6 @@ export function ErrorReviewPage() {
       <ModuleHeader
         module={module}
         step={4}
-        title="עכשיו אתם המבקרים"
         description={scenario.instructions}
       />
       <StageGuide

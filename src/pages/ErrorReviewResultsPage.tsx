@@ -38,7 +38,6 @@ export function ErrorReviewResultsPage() {
       <ModuleHeader
         module={module}
         step={5}
-        title="תמונת הבקרה שלכם"
         description="התוצאה מפרידה בין טעויות שנמצאו, סימוני שווא וטעויות שלא נמצאו."
       />
       <div className="page-section page-section--soft">

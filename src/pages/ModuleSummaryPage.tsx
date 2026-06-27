@@ -41,7 +41,6 @@ export function ModuleSummaryPage() {
       <ModuleHeader
         module={module}
         step={6}
-        title={`סיכום ${module.title}`}
         description="שלושה עקרונות לקחת למשימה הבאה, ותמונת מצב קצרה של התרגול."
       />
       <div className="summary-page">

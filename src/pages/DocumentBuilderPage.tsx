@@ -178,7 +178,6 @@ export function DocumentBuilderPage() {
       <ModuleHeader
         module={module}
         step={2}
-        title="בונים את המסמך, חלק אחר חלק"
         description="בחרו חלק זמין במסמך, למדו מה תפקידו והשלימו אותו מתוך בנק האפשרויות."
       />
       <StageGuide

@@ -25,7 +25,6 @@ export function CompletedDocumentPage() {
       <ModuleHeader
         module={module}
         step={3}
-        title="המסמך שבניתם"
         description="כל חלק ממלא תפקיד אחר. עברו על המסמך השלם לפני שתעברו לבקר מסמך חדש."
       />
       <StageGuide

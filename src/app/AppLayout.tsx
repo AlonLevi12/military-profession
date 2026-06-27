@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { HelpDrawer } from "../components/HelpDrawer";
 import { Icon } from "../components/Icon";
@@ -9,6 +9,13 @@ export function AppLayout() {
   const [resetOpen, setResetOpen] = useState(false);
   const location = useLocation();
   const isRoadmap = location.pathname === "/";
+
+  useEffect(() => {
+    const mainContent = document.getElementById("main-content");
+
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    mainContent?.focus({ preventScroll: true });
+  }, [location.pathname, location.search]);
 
   return (
     <div className="app-shell">

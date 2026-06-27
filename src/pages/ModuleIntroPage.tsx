@@ -28,7 +28,6 @@ export function ModuleIntroPage() {
       <ModuleHeader
         module={module}
         step={1}
-        title={`לפני שמתחילים: מהו ${module.title}?`}
         description={module.shortDescription}
       />
       <div className="page-section">
