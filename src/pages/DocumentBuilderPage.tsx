@@ -48,6 +48,24 @@ export function DocumentBuilderPage() {
     module && activeSection
       ? sectionLessonsByModule[module.id][activeSection.id]
       : undefined;
+  const nextAvailableIncompleteSection = useMemo(() => {
+    if (!module || !activeSection) return undefined;
+
+    const activeIndex = module.documentSections.findIndex(
+      (candidate) => candidate.id === activeSection.id,
+    );
+    const isAvailableAndIncomplete = (
+      candidate: (typeof module.documentSections)[number],
+    ) =>
+      availableIds.includes(candidate.id) && !completedIds.includes(candidate.id);
+
+    return (
+      module.documentSections
+        .slice(activeIndex + 1)
+        .find(isAvailableAndIncomplete) ??
+      module.documentSections.find(isAvailableAndIncomplete)
+    );
+  }, [activeSection, availableIds, completedIds, module]);
 
   useEffect(() => {
     if (!module || activeSectionId) return;
@@ -72,6 +90,11 @@ export function DocumentBuilderPage() {
 
   const isComplete =
     completedIds.length === module.documentSections.length;
+  const isActiveSectionCompleted = activeSection
+    ? completedIds.includes(activeSection.id)
+    : false;
+  const shouldShowContinueButton =
+    isActiveSectionCompleted && feedback?.type === "success";
   const attempts = activeSection
     ? (builderProgress?.attempts[activeSection.id] ?? 0)
     : 0;
@@ -119,6 +142,11 @@ export function DocumentBuilderPage() {
           .filter(Boolean)
           .join(" ") || "הבחירה אינה מתאימה לתפקיד החלק במסמך.",
     });
+  };
+
+  const handleContinueToNextSection = () => {
+    if (!nextAvailableIncompleteSection) return;
+    setActiveSectionId(nextAvailableIncompleteSection.id);
   };
 
   return (
@@ -242,7 +270,7 @@ export function DocumentBuilderPage() {
                     activeSection.id,
                   ) && <RiskMatrix />}
 
-                {completedIds.includes(activeSection.id) ? (
+                {isActiveSectionCompleted && !shouldShowContinueButton ? (
                   <div className="completed-panel">
                     <span>
                       <Icon name="check" />
@@ -273,6 +301,7 @@ export function DocumentBuilderPage() {
                           }
                           name={`section-${activeSection.id}`}
                           checked={selection.includes(candidate.id)}
+                          disabled={shouldShowContinueButton}
                           onChange={() => handleSelect(candidate.id)}
                         />
                         <span className="option-card__marker">
@@ -289,14 +318,35 @@ export function DocumentBuilderPage() {
                         ביניהם.
                       </p>
                     )}
-                    <button
-                      className="button button--primary button--full"
-                      type="button"
-                      disabled={selection.length === 0}
-                      onClick={handleCheck}
-                    >
-                      בדיקת הבחירה
-                    </button>
+                    {shouldShowContinueButton ? (
+                      nextAvailableIncompleteSection ? (
+                        <button
+                          className="button button--primary button--full"
+                          type="button"
+                          onClick={handleContinueToNextSection}
+                        >
+                          עבור לסעיף הבא
+                          <Icon name="arrow-left" />
+                        </button>
+                      ) : (
+                        <Link
+                          className="button button--primary button--full"
+                          to={`/module/${module.id}/completed`}
+                        >
+                          צפייה במסמך שהושלם
+                          <Icon name="arrow-left" />
+                        </Link>
+                      )
+                    ) : (
+                      <button
+                        className="button button--primary button--full"
+                        type="button"
+                        disabled={selection.length === 0}
+                        onClick={handleCheck}
+                      >
+                        בדיקת הבחירה
+                      </button>
+                    )}
                   </fieldset>
                 )}
 
