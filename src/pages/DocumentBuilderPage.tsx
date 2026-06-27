@@ -90,13 +90,24 @@ export function DocumentBuilderPage() {
   }, [feedback]);
 
   useEffect(() => {
-    if (!shouldScrollToSectionHeaderRef.current || !activeSectionId) return;
-    shouldScrollToSectionHeaderRef.current = false;
-    sectionHeaderRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  }, [activeSectionId]);
+    if (!shouldScrollToSectionHeaderRef.current || !activeSectionId || feedback) {
+      return;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      shouldScrollToSectionHeaderRef.current = false;
+      const sectionHeader = sectionHeaderRef.current;
+      if (!sectionHeader) return;
+
+      const headerTop = sectionHeader.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({
+        top: Math.max(headerTop - 96, 0),
+        behavior: "smooth",
+      });
+    }, 0);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [activeSectionId, feedback]);
 
   if (!module) return <Navigate to="/" replace />;
 
