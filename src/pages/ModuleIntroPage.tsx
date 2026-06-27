@@ -91,11 +91,11 @@ export function ModuleIntroPage() {
                 <span className={module.id === "paka" ? "is-current" : ""}>
                   פק״א
                 </span>
-                <Icon name="arrow-left" />
+                <Icon name="arrow-right" />
                 <span className={module.id === "risk" ? "is-current" : ""}>
                   סיכונים
                 </span>
-                <Icon name="arrow-left" />
+                <Icon name="arrow-right" />
                 <span className={module.id === "debrief" ? "is-current" : ""}>
                   תחקיר
                 </span>
