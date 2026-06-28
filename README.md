@@ -8,7 +8,7 @@
 
 ## הפעלה מקומית
 
-דרישות: Node.js 20 ומעלה ו־npm.
+ דרישות: Node.js 20 ומעלה ו־npm.
 
 ```bash
 npm install
