@@ -35,6 +35,8 @@ export function DocumentBuilderPage() {
   const feedbackRef = useRef<HTMLDivElement>(null);
   const sectionHeaderRef = useRef<HTMLDivElement>(null);
   const shouldScrollToSectionHeaderRef = useRef(false);
+  const [sectionHeaderScrollRequest, setSectionHeaderScrollRequest] =
+    useState(0);
 
   const completedIds = builderProgress?.completedSectionIds ?? [];
   const availableIds = useMemo(
@@ -108,7 +110,7 @@ export function DocumentBuilderPage() {
     }, 0);
 
     return () => window.clearTimeout(timeoutId);
-  }, [activeSectionId, feedback]);
+  }, [activeSectionId, feedback, sectionHeaderScrollRequest]);
 
   if (!module) return <Navigate to="/" replace />;
 
@@ -168,9 +170,19 @@ export function DocumentBuilderPage() {
     });
   };
 
+  const requestSectionHeaderScroll = () => {
+    shouldScrollToSectionHeaderRef.current = true;
+    setSectionHeaderScrollRequest((currentRequest) => currentRequest + 1);
+  };
+
+  const handleSectionClick = (sectionId: string) => {
+    requestSectionHeaderScroll();
+    setActiveSectionId(sectionId);
+  };
+
   const handleContinueToNextSection = () => {
     if (!nextAvailableIncompleteSection) return;
-    shouldScrollToSectionHeaderRef.current = true;
+    requestSectionHeaderScroll();
     setActiveSectionId(nextAvailableIncompleteSection.id);
   };
 
@@ -229,7 +241,7 @@ export function DocumentBuilderPage() {
               progress={builderProgress}
               activeSectionId={activeSectionId}
               availableSectionIds={availableIds}
-              onSectionClick={setActiveSectionId}
+              onSectionClick={handleSectionClick}
             />
           </div>
 
